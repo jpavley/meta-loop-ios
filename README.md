@@ -1,6 +1,8 @@
 # Meta-Loop iOS
 
-AI-assisted iOS development methodology for single-shot repeatability. Build features with AI coding agents using a structured wireframe → spec → implementation → learning retention workflow.
+*Draw, spec, code, learn, repeat*
+
+AI-assisted iOS development methodology for high probability single-shot repeatability. Build features with AI coding agents using a structured wireframe → spec → implementation → learning retention workflow.
 
 ## The Problem
 
