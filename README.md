@@ -121,4 +121,4 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
 
-This methodology was developed while building [Bit Quiz 16](https://github.com/jpavley/Card-Flip-Animation), an iOS educational game teaching binary number concepts.
+This methodology was developed while building [Bit Quiz 16]([https://github.com/jpavley/Card-Flip-Animation](https://apps.apple.com/us/app/bit-quiz-16/id1670026590)), an iOS educational game teaching binary number concepts.
