@@ -1,0 +1,125 @@
+# How to Create a Wireframe
+
+> Tips for creating wireframes that drive accurate specs via `/ml-spec`
+
+## Purpose
+
+Wireframes are the primary input to the Meta-Loop specification process. The AI reads your wireframe and generates a specification document from it. These tips help you create wireframes that communicate your intent clearly — especially the parts the AI is likely to misunderstand.
+
+**For the full Meta-Loop process**, see [sw-development-process.md](./sw-development-process.md) and [meta-loop-user-guide.md](./meta-loop-user-guide.md).
+
+---
+
+## Wireframe Principles
+
+1. **Whiteboard quality is fine.** Wireframes don't need to be pixel-perfect. Rough sketches with clear annotations work better than polished mockups with no annotations.
+
+2. **Annotations are the real content.** The sketch shows layout; the annotations communicate intent. When in doubt, add an annotation.
+
+3. **Wireframes communicate intent, not pixels.** The AI doesn't need exact dimensions or colors — it needs to understand *what you want the user to experience*.
+
+---
+
+## What to Annotate
+
+| Category | What to Call Out | Example |
+|----------|-----------------|---------|
+| Component identification | What each visual element IS | `← Modal Title component` |
+| Data flow | Where content comes from | `← loaded from app bundle` |
+| Behavioral requirements | Scrolling, error states, CRT exclusion | `← scrollable, NO barrel distortion` |
+| Sizing behavior differences | When this screen sizes differently from similar screens | `← content fills width (unlike menu screens)` |
+| Interaction triggers | What tapping/swiping does | `← tap to dismiss, returns to Help Menu` |
+| Orientation differences | How landscape differs from portrait | `← single column in both orientations` |
+
+---
+
+## The Difference Rule
+
+**When a component or layout behaves differently from how it appears on other screens, annotate the difference.**
+
+### Why This Matters
+
+The spec writer (AI) will look at your wireframe, identify familiar components, and assume they behave the same way they do everywhere else. Most of the time this assumption is correct. When it isn't, the spec will silently inherit the wrong behavior — and the bug won't surface until implementation.
+
+### The Rule
+
+If you're reusing a component or layout pattern from another screen, and it behaves differently here, write an annotation that calls out the difference. The format is:
+
+```
+← [what happens here] (unlike [what happens elsewhere])
+```
+
+### Real Example: Document Reader Bug
+
+Page Background appears on 6 screens in BQ16. On 5 of them, it wraps discrete lines of text (menu items, stat rows) where the content has a natural fixed width. The spec writer saw Page Background on the Document Reader wireframe and assumed the same sizing pattern — "hugs content width." But the Document Reader wraps *flowing markdown text* that needs to fill the available width.
+
+**Without annotation:** The spec prescribed `.fixedSize` (a sizing strategy that works for discrete lines but breaks flowing text). Implementation followed the spec. Text didn't wrap.
+
+**With annotation:** A note saying `← content fills width (unlike menu screens with discrete lines)` would have told the spec writer that this Page Background behaves differently, preventing the wrong assumption.
+
+### More Examples
+
+| Annotation | What It Prevents |
+|------------|-----------------|
+| `← content fills width (unlike menu screens)` | Copying discrete-line sizing to flowing text |
+| `← no bottom bar` | Inheriting the bottom bar from other modal screens |
+| `← single column in landscape (unlike Help Menu's two columns)` | Copying the two-column landscape layout |
+| `← scrollable area includes Page Background` | Assuming Page Background sits outside the scroll view |
+| `← title extracted from document (not hardcoded)` | Assuming the title is a static string |
+
+---
+
+## What NOT to Annotate
+
+These are implementation details that belong in code, not wireframes:
+
+| Skip This | Why |
+|-----------|-----|
+| Exact pixel dimensions | The layout system handles spacing |
+| Color values or names | Colors come from the theme system |
+| Font names or sizes | Fonts come from the font system |
+| Implementation strategy (`.fixedSize`, modifier chains) | The developer chooses the right approach |
+| Platform-specific API names | Specs should be platform-agnostic |
+
+**Rule of thumb:** If it's about *what the user sees*, annotate it. If it's about *how the developer builds it*, skip it.
+
+---
+
+## File Format and Location
+
+- **Format:** PNG (exported from any drawing tool — iPad sketch apps, Figma, whiteboard photos)
+- **Location:** `specs/screens/<screen-name>/portrait.png` and `landscape.png`
+- **Naming:** Use the screen's slug name (e.g., `document-reader-screen`, `level-chooser-screen`)
+
+```
+specs/screens/document-reader-screen/
+├── portrait.png
+├── landscape.png
+└── spec.md          ← generated by /ml-spec
+```
+
+---
+
+## Orientation
+
+If the screen supports rotation, provide both wireframes:
+
+- **Portrait** (`portrait.png`) — primary layout
+- **Landscape** (`landscape.png`) — adapted layout
+
+If the layout is identical in both orientations (just wider), you can note that on a single wireframe: `← same layout in landscape, just wider`.
+
+---
+
+## Quick Checklist
+
+Scan this before running `/ml-wireframe`:
+
+- [ ] Every visual element is labeled (what component it is)
+- [ ] Data sources are annotated (where content comes from)
+- [ ] Scrollable areas are marked
+- [ ] **Any behavior that differs from the same component on other screens is annotated** (The Difference Rule)
+- [ ] Interaction triggers are noted (what tapping does)
+- [ ] Both orientations are covered (or noted as identical)
+- [ ] No implementation details (no modifier names, no pixel values, no API calls)
+- [ ] Error/empty states are shown or annotated
