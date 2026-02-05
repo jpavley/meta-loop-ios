@@ -22,6 +22,7 @@ Meta-Loop inverts traditional software economics:
 | Documentation often skipped | Documentation is the persistent value |
 | Knowledge lives in developers' heads | Knowledge is externalized to docs |
 | Iteration is costly | Iteration is nearly free |
+| Spec is refined at the end | Spec (and wireframe) is refined iteratively |
 
 **Learning is preserved in the documentation, not in the code.**
 
