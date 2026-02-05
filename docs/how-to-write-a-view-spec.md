@@ -1,71 +1,57 @@
-# How to Write a Screen Spec
+# How to Write a View Spec
 
-> This guide teaches Claude how to write specification documents for screens in Bit Quiz 16. Use the Help Menu Screen spec as the canonical reference.
+> This guide teaches Claude how to write specification documents for SwiftUI views. Use this alongside the view template as your reference.
 
 ## Key Concepts
 
-### Screens vs Modals (Legacy)
+### View Principles
 
-| Pattern | Location | Status | Description |
-|---------|----------|--------|-------------|
-| **Screens** | `Screens/*.swift` | Current | Spec-driven, content-only views that render ON TOP of persistent CRT background |
-| **Modals** | `Modals/*.swift` | Legacy | Self-contained views with their own CRT/styling code (do not use as reference) |
+1. **Composed from views** — Views arrange reusable child views with appropriate spacing
+2. **Callback navigation** — Views receive closures (`onDismiss`, `onSelectItem`); they don't know where to navigate
+3. **Data independent** — Views accept only primitive inputs (IDs, strings, values) and derive display data themselves. A view should never require its caller's data model.
+4. **Layout-aware** — Every view provides portrait and landscape layouts where appropriate
+5. **Animation coordination** — Views assign animation offsets to each element
+6. **Platform-agnostic requirements** — All sections above Implementation Reference describe WHAT to build using prose, tables, and diagrams. Platform-specific code (Swift, Kotlin, etc.) belongs exclusively in Implementation Reference
 
-**Important:** The code in `Modals/` is outdated. Always use `Screens/` implementations as your reference. The modal code includes embedded CRT effects and styling that screens should NOT have.
+### View Scope: What to Think About vs. Trust the System
 
-### Screen Principles
+View specs should focus thinking on **view-level concerns** and trust other systems for everything else.
 
-1. **Content only** — Screens don't include CRT shader code; they render on top of the persistent CRT background in `ContentView`
-2. **Composed from components** — Screens arrange reusable components with external spacing
-3. **Callback navigation** — Screens receive closures (`onDismiss`, `onSelectItem`); they don't know where to navigate
-4. **Data independent** — Screens accept only primitive inputs (IDs, strings, values) and derive display data themselves. A screen should never require its caller's data model. For example, a document reader accepts a `documentId: String` and parses its own title from the file — it does not accept a `HelpMenuItem` from the Help Menu.
-5. **Layout-aware** — Every screen provides portrait and landscape layouts
-6. **Teletype coordination** — Screens assign animation offsets to each component
-7. **Platform-agnostic requirements** — All sections above Implementation Reference describe WHAT to build using prose, tables, and diagrams. Platform-specific code (Swift, Kotlin, etc.) belongs exclusively in Implementation Reference
-
-### Screen Scope: What to Think About vs. Trust the System
-
-Screen specs should focus thinking on **screen-level concerns** and trust other systems for everything else.
-
-**Requirements vs. implementation details:** Specs capture **what** the screen must do (requirements from the wireframe) — not **how** the code achieves it. If the wireframe says "scrolling text should not receive CRT effects," the spec states that requirement in the Notes section. It does not prescribe the layering approach, modifier chain, or rendering technique. The implementor decides the approach.
+**Requirements vs. implementation details:** Specs capture **what** the view must do (requirements from the wireframe) — not **how** the code achieves it. If the wireframe says "scrolling text should not receive a visual effect," the spec states that requirement in the Notes section. It does not prescribe the layering approach, modifier chain, or rendering technique. The implementor decides the approach.
 
 **Platform-Agnostic Vocabulary**
 
 | Instead of... | Write... |
 |---------------|----------|
 | `VStack` / `HStack` | "vertical stack" / "horizontal stack" |
-| `VStack with .pageBackground()` | "vertical stack within Page Background" |
-| `.pageBackground(padding:)` value | "Page Background inner padding" |
 | `ScrollView` | "scrollable area" |
-| `struct MyScreen: View { let x: Type }` | Interface table (see Section 10) |
-| `.toolbarButtons(dismiss: onDismiss)` | "Dismiss button, top-left placement" |
-| `@State private var x: Type` | Screen State table (see Section 10) |
+| `struct MyView: View { let x: Type }` | Interface table (see Section 10) |
+| `@State private var x: Type` | View State table (see Section 10) |
 | `ForEach(items) { ... }` | "For each item in the collection" |
 | `.cancellationAction` / `.bottomBar` | "top-left" / "bottom bar" |
 | `Content VStack` / `Left VStack` | "Content column" / "Left column" |
 
-**Think deeply about (screen concerns):**
+**Think deeply about (view concerns):**
 
 | Concern | Example Questions |
 |---------|-------------------|
-| Component composition | Which components? In what order? |
+| View composition | Which child views? In what order? |
 | Layout structure | Portrait vs landscape arrangement? Single column or two? |
 | Content | What text? Where does data come from? |
 | Interactions | What's tappable? What happens on tap? |
 | Callbacks | What closures does the parent provide? |
-| Teletype offsets | What animation order for elements? |
+| Animation offsets | What animation order for elements? |
 
-**Trust the system for (not screen concerns):**
+**Trust the system for (not view concerns):**
 
 | Concern | Handled By | Don't Ask... |
 |---------|------------|--------------|
-| Device-specific sizing | `LayoutTheme` + layout views | "Should iPad have a max width?" |
-| Font sizes | `FontSystem` | "What font size on iPhone SE?" |
-| Colors | `DifficultyLevel` + `TextColorizer` | "What exact color values?" |
-| CRT effects | `ContentView` | "How does barrel distortion work?" |
-| Responsive breakpoints | `LayoutTheme.layoutType` | "At what width does layout change?" |
+| Device-specific sizing | Layout system | "Should iPad have a max width?" |
+| Font sizes | Font system | "What font size on iPhone SE?" |
+| Colors | Theme system | "What exact color values?" |
+| Responsive breakpoints | Layout system | "At what width does layout change?" |
 
-If a question is about *how this screen arranges its content*, think deeply. If a question is about *how the app handles device differences*, trust that the layout system already handles it — or note it as a potential layout system enhancement, not a screen spec decision.
+If a question is about *how this view arranges its content*, think deeply. If a question is about *how the app handles device differences*, trust that the layout system already handles it — or note it as a potential layout system enhancement, not a view spec decision.
 
 ### Wireframes Are the Source of Truth
 
@@ -76,42 +62,31 @@ Examples:
 - Wireframe shows a new layout pattern → spec should describe that pattern, not preserve old layout code
 - Wireframe annotations override any assumptions from reading existing code
 
-The spec captures what the screen **should** do, not what legacy code **currently** does.
+The spec captures what the view **should** do, not what legacy code **currently** does.
 
 ## Before Writing a Spec
 
-**Required reading:** Before planning or writing any screen spec, read [shared-screen-patterns/spec.md](./screens/shared-screen-patterns/spec.md). This file defines:
+**Read your project's shared patterns:** If your project has a shared patterns document (referenced in CLAUDE.md), read it first. This file typically defines common styling rules, layout conventions, and animation patterns. Understanding these shared patterns prevents duplicating rules in your spec and ensures consistency across views.
 
-- Modal title and background formatting
-- Indicator styling rules (menu items vs notes)
-- Toolbar button configuration
-- Stats entry format
-- Color roles and text colorization rules
-- Teletype animation patterns
-- List alignment patterns
-- ASCII box drawing characters
+**Read referenced view specs:** If the wireframe labels child views, read the corresponding view specs before writing the parent view spec. Child view specs define:
 
-Understanding these shared patterns prevents duplicating rules in your spec and ensures consistency across screens.
-
-**Read referenced component specs:** If the wireframe labels components (e.g., "Modal Title Component", "Page Background Component"), read the corresponding component specs in `specs/components/` before writing the screen spec. Component specs define:
-
-- What parameters the component accepts
+- What parameters the view accepts
 - Internal behavior and styling rules
-- What the screen is responsible for vs. what the component handles
+- What the parent is responsible for vs. what the child handles
 
-This prevents the screen spec from duplicating component behavior or making incorrect assumptions. For example, if Modal Title Component already handles the "(paused)" notification format, the screen spec should not re-specify that formatting.
+This prevents the view spec from duplicating child view behavior or making incorrect assumptions.
 
 ## Spec File Structure
 
-Every screen spec follows this structure. Use [help-menu-screen/spec.md](./screens/help-menu-screen/spec.md) as your template.
+Every view spec follows this structure. Use `templates/specs/view-template.md` as your starting point.
 
 ### 1. Header
 
 ```markdown
-<!-- SCREEN: {screen-name}-screen -->
-# {Screen Name} Screen
+<!-- VIEW: {view-name} -->
+# {View Name}
 
-> One-sentence description of what this screen does.
+> One-sentence description of what this view does.
 ```
 
 ### 2. Wireframes Section
@@ -123,39 +98,30 @@ Always include both wireframes with descriptive alt text:
 
 ### Portrait
 
-![{Screen Name} - Portrait](./portrait.png)
+![{View Name} - Portrait](./portrait.png)
 
 ### Landscape
 
-![{Screen Name} - Landscape](./landscape.png)
+![{View Name} - Landscape](./landscape.png)
 ```
 
-### 3. Components Table
+### 3. Child Views Table
 
-List ALL components this screen composes. Link to their specs.
+List ALL child views this view composes. Link to their specs if they have them.
 
 ```markdown
-## Components
+## Child Views
 
-This screen composes the following components:
+This view composes the following child views:
 
-| Component       | Spec                                                                            | Instances                   |
-| --------------- | ------------------------------------------------------------------------------- | --------------------------- |
-| Modal Title     | [modal-title-component](../../components/modal-title-component/spec.md)         | 1                           |
-| Section Title   | [section-title-component](../../components/section-title-component/spec.md)     | 1 (for "HELP TOPICS")       |
-| ...             | ...                                                                             | ...                         |
+| View            | Spec                                      | Instances                   |
+| --------------- | ----------------------------------------- | --------------------------- |
+| HeaderView      | [header-view](../header-view/spec.md)     | 1                           |
+| ListItemView    | [list-item-view](../list-item-view/spec.md) | N (one per item)          |
+| ...             | ...                                       | ...                         |
 ```
 
-**Common components available:**
-
-| Component | When to Use | Spec Link |
-|-----------|-------------|-----------|
-| Modal Title | Every screen (title + level notification) | `components/modal-title-component/spec.md` |
-| Section Title | Section headers like `# HELP TOPICS #` | `components/section-title-component/spec.md` |
-| Notes | Instruction items with indicators | `components/notes-component/spec.md` |
-| Page Background | Translucent container for content groups | `components/page-background-component/spec.md` |
-| Toolbar Buttons | Native toolbar with dismiss/action buttons | `components/toolbar-buttons-component/spec.md` |
-| Stats Entry | Stat rows like `LABEL => DATA` | `components/stats-entry-component/spec.md` |
+Document which views are reused from your project's existing components, and which are new.
 
 ### 4. Layout Section
 
@@ -173,21 +139,21 @@ Single-column vertical stack:
 
 | Element     | Description                                |
 | ----------- | ------------------------------------------ |
-| Modal Title | Screen title + level notification           |
-| Content     | Vertical stack within Page Background       |
+| Header      | View title                                 |
+| Content     | Vertical stack with main content           |
 
 **Content column:**
 
-1. Section Title: `# HELP TOPICS #`
-2. Help Menu Items (8 rows)
-3. Notes Component
+1. Section header
+2. List items (N rows)
+3. Footer notes
 
 **Alignment:**
 
 | Container | Alignment | Reason |
 | --------- | --------- | ------ |
-| Content column | Center (default) | Centers the page background |
-| Help Menu Items column | **Leading** | All `[>]` indicators form a straight left edge |
+| Content column | Center (default) | Centers the content |
+| List items column | **Leading** | Indicators form a straight left edge |
 ```
 
 **Landscape example:**
@@ -199,9 +165,9 @@ Two-column horizontal layout:
 
 | Element      | Description                                        |
 | ------------ | -------------------------------------------------- |
-| Modal Title  | Screen title + level notification (full width)     |
-| Left column  | Vertical stack within Page Background              |
-| Right column | Vertical stack within Page Background              |
+| Header       | View title (full width)                            |
+| Left column  | Vertical stack with primary content                |
+| Right column | Vertical stack with secondary content              |
 
 **Column group centering:** Both columns sit side-by-side as a centered group — they do NOT spread to fill the available width.
 ```
@@ -217,9 +183,9 @@ Document ALL gaps between elements. Separate portrait and landscape if values di
 
 | Gap                                    | Value |
 | -------------------------------------- | ----- |
-| Modal Title to content column          | 16pt  |
-| Page Background inner padding          | 20pt  |
-| Section Title to first item            | 12pt  |
+| Header to content column               | 16pt  |
+| Container inner padding                | 20pt  |
+| Section header to first item           | 12pt  |
 | Between list items                     | 8pt   |
 ```
 
@@ -230,38 +196,33 @@ Document the actual content — text, data sources, static values.
 ```markdown
 ## Content
 
-### Modal Title
+### Header
 
-- **Title:** `# BIT QUIZ 16 HELP #`
-- **Notification:** `CURRENT LEVEL => {LEVEL-NAME} (paused)`
+- **Title:** `# VIEW TITLE #`
+- **Subtitle:** `{context-specific subtitle}`
 
 ### Section Name
 
 Describe what appears in each section. Include:
 - Exact text strings (in backticks)
-- Data sources (e.g., "from `container.level.difficultyLevel`")
+- Data sources (e.g., "from `viewModel.property`")
 - Any transformations (e.g., "uppercase", "padded to 22 chars")
 ```
 
 ### 7. Data Model Section (if applicable)
 
-If the screen displays data from a model, document the model structure using a field table:
+If the view displays data from a model, document the model structure using a field table:
 
 ```markdown
 ### Data Model
 
-**HelpMenuItem:**
+**ItemModel:**
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `id` | string, unique | Document identifier for navigation |
-| `title` | string | Display title shown in menu |
-
-**ID to Display Mapping:**
-
-| Display Text | ID | Notes |
-| ------------ | -- | ----- |
-| HOW TO PLAY  | `how-to-play` | Maps to `how-to-play.md` |
+| `id` | string, unique | Unique identifier |
+| `title` | string | Display title |
+| `subtitle` | string, optional | Secondary text |
 ```
 
 ### 8. Toolbar Configuration Section
@@ -279,12 +240,7 @@ Describe button placement using a table:
 - **Bottom bar:** None (or describe action buttons)
 ```
 
-**Dismiss button behavior:** The dismiss button always returns to the screen that presented the current screen. For example:
-- Document Reader's dismiss → returns to Help Menu (which opened it)
-- Help Menu's dismiss → returns to Game (which opened it)
-- Level Chooser's dismiss → returns to Game (which opened it)
-
-The screen doesn't know or care *where* it returns to — it simply calls `onDismiss()`, and the parent provides the navigation logic. This keeps screens decoupled from the navigation hierarchy.
+**Dismiss button behavior:** The dismiss button always returns to the view that presented the current view. The view doesn't know or care *where* it returns to — it simply calls `onDismiss()`, and the parent provides the navigation logic. This keeps views decoupled from the navigation hierarchy.
 
 ### 9. Interaction Section
 
@@ -295,54 +251,54 @@ Document ALL tappable elements and their behaviors:
 
 | Action              | Behavior                                            |
 | ------------------- | --------------------------------------------------- |
-| Tap Help Menu Item  | Calls `onSelectItem(item)`, navigates to reader     |
-| Tap Dismiss (X)     | Calls `onDismiss`, returns to game                  |
+| Tap list item       | Calls `onSelectItem(item)`, navigates to detail     |
+| Tap Dismiss (X)     | Calls `onDismiss`, returns to previous view         |
 ```
 
-### 10. Screen Interface Section
+### 10. View Interface Section
 
-Document the screen's inputs and outputs:
+Document the view's inputs and outputs:
 
 ```markdown
-### Screen Interface
+### View Interface
 
 **Inputs:**
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| (none for some screens, or data IDs for others) | | |
+| items | [ItemModel] | Data to display |
+| selectedId | String? | Currently selected item |
 
 **Outputs (callbacks):**
 
 | Event | Payload | Description |
 |-------|---------|-------------|
-| onSelectItem | item | Called when user taps a menu item |
+| onSelectItem | item | Called when user taps an item |
 | onDismiss | — | Called when user taps dismiss |
 
-**Callback pattern:** The screen doesn't know where to navigate — it receives callbacks from its parent. The parent provides the navigation logic.
+**Callback pattern:** The view doesn't know where to navigate — it receives callbacks from its parent. The parent provides the navigation logic.
 ```
 
 ### 11. Animation Section
 
-Document teletype offsets for each component:
+Document animation offsets for each element (if your project uses sequential animations):
 
 ```markdown
 ## Animation
 
-### Teletype Offsets
+### Animation Offsets
 
-Screen assigns starting offsets to each component:
+View assigns starting offsets to each element:
 
-| Component              | Element Count | Starting Offset |
+| Element                | Element Count | Starting Offset |
 | ---------------------- | ------------- | --------------- |
-| Modal Title            | 2             | 1               |
-| Section Title          | 1             | 3               |
-| List Items (×8)        | 8             | 4               |
-| Notes                  | 3             | 12              |
+| Header                 | 1             | 1               |
+| Section Title          | 1             | 2               |
+| List Items (×N)        | N             | 3               |
 
-**Total elements:** 14
+**Total elements:** N + 2
 
-**Note:** Modal Title starts at offset 1 (not 0) to allow a brief pause before content appears.
+**Note:** Offsets create sequential appearance animations.
 ```
 
 ### 12. Styling Section
@@ -352,9 +308,8 @@ Reference shared patterns — don't duplicate rules:
 ```markdown
 ## Styling
 
-- Follows [Modal Background](../shared-screen-patterns/spec.md#modal-background)
-- Follows [Text Colorization Rules](../shared-screen-patterns/spec.md#text-colorization-rules)
-- Accent color: Inherited from current level
+- Follows project's shared styling patterns (see CLAUDE.md)
+- Accent color: Inherited from theme
 ```
 
 ### 13. Accessibility Section
@@ -362,42 +317,31 @@ Reference shared patterns — don't duplicate rules:
 ```markdown
 ## Accessibility
 
-- Screen announced as "Bit Quiz 16 Help"
-- List items are buttons with action hints ("Opens help document")
-- Notes section provides context for UI symbols
+- View announced as "{View Name}"
+- Interactive elements have appropriate accessibility labels
+- List items are buttons with action hints
 ```
 
 ### 14. Implementation Reference Section
 
 Show the file location and key code patterns. This section is the **only place** for platform-specific code. It should also contain:
 - Swift struct signature (or equivalent in target platform)
-- Toolbar modifier chain
+- Key modifiers or patterns
 - Parent call-site example (how the parent wires callbacks)
 
 ```markdown
 ## Implementation Reference
 
-- **File:** `Screens/HelpMenuScreen.swift`
-- **Navigation:** `container.ui.navigateTo(.helpMenu)`
-- **Dismiss:** `container.ui.dismissToMain()`
+- **File:** `Views/MyView.swift`
 
 ```swift
-struct HelpMenuScreen: View {
-    @Environment(\.layoutTheme) private var theme
-    @Environment(\.gameContainer) private var container
-
-    let onSelectItem: (HelpMenuItem) -> Void
+struct MyView: View {
+    let items: [ItemModel]
+    let onSelectItem: (ItemModel) -> Void
     let onDismiss: () -> Void
 
     var body: some View {
-        Group {
-            if theme.isHorizontalLayout {
-                landscapeLayout
-            } else {
-                portraitLayout
-            }
-        }
-        .toolbarButtons(dismiss: onDismiss)
+        // Implementation here
     }
 }
 ```
@@ -420,60 +364,56 @@ Catch-all for important details that don't fit elsewhere:
 ```markdown
 ## Notes
 
-- Screen renders on top of persistent CRT background (no CRT code in this file)
-- All list items use `[>]` indicator (vs Level Chooser which uses `[*]` for current level)
-- The screen is structurally similar to Level Chooser but navigates to Document Reader instead
+- Any special rendering considerations
+- Differences from similar views
+- Non-obvious design decisions from wireframe annotations
 ```
 
 ## Wireframe Annotations
 
-Good wireframes include annotations that map UI elements to components. When reviewing wireframes, look for:
+Good wireframes include annotations that map UI elements to views. When reviewing wireframes, look for:
 
 | Annotation Type | Example | Purpose |
 |-----------------|---------|---------|
-| Component labels | "Modal Title Component" | Identifies which reusable component to use |
-| Data sources | "Document source passed from Help Menu" | Clarifies where data comes from |
-| Behavioral notes | "Scrolling text should NOT receive CRT effects" | Captures non-obvious requirements |
-| Element groupings | Rounded rectangles around content | Shows what's inside the Page Background container |
+| View labels | "HeaderView" | Identifies which reusable view to use |
+| Data sources | "Data passed from parent view" | Clarifies where data comes from |
+| Behavioral notes | "Scrolling text should NOT receive effect X" | Captures non-obvious requirements |
+| Element groupings | Rounded rectangles around content | Shows what's inside a container |
 
-**Annotations are scoped to what they name.** When an annotation references specific elements (e.g., "the scrolling text view should not receive CRT effects"), it applies to exactly those elements. Unnamed elements follow their default behavior. Do not ask whether unnamed elements are also affected — they aren't.
+**Annotations are scoped to what they name.** When an annotation references specific elements, it applies to exactly those elements. Unnamed elements follow their default behavior. Do not ask whether unnamed elements are also affected — they aren't.
 
 ## Common Pitfalls
 
 ### 1. Forgetting Landscape Layout
 
-Every screen MUST specify both portrait AND landscape. Phone landscape uses different column arrangements than portrait.
+Every view MUST specify both portrait AND landscape where applicable. Phone landscape uses different column arrangements than portrait.
 
 ### 2. Missing Alignment Specifications
 
-Lists with indicators (`[>]`, `[*]`) MUST use leading alignment so indicators form a straight vertical line. See [List Alignment Patterns](./screens/shared-screen-patterns/spec.md#list-alignment-patterns).
+Lists with indicators MUST use leading alignment so indicators form a straight vertical line.
 
 ### 3. Duplicating Shared Patterns
 
-Don't copy-paste colorization rules or toolbar patterns into the spec. Reference [shared-screen-patterns/spec.md](./screens/shared-screen-patterns/spec.md) instead.
+Don't copy-paste styling rules into the spec. Reference your project's shared patterns instead.
 
-### 4. Mixing Screen and Component Concerns
+### 4. Mixing Parent and Child View Concerns
 
-- **Screen spec:** External spacing, layout, teletype offsets, callbacks
-- **Component spec:** Internal behavior, internal spacing, text formatting
+- **Parent view spec:** External spacing, layout, animation offsets, callbacks
+- **Child view spec:** Internal behavior, internal spacing, text formatting
 
-If you're describing internal component behavior in a screen spec, stop and create/reference a component spec instead.
+If you're describing internal child view behavior in a parent view spec, stop and create/reference a child view spec instead.
 
-### 5. Using Modal Code as Reference
+## Checklist Before Completing a View Spec
 
-The `Modals/` folder contains legacy implementations with embedded CRT effects and styling. **Do not use these as patterns.** Always reference `Screens/` implementations.
-
-## Checklist Before Completing a Screen Spec
-
-- [ ] Header has HTML comment `<!-- SCREEN: {name}-screen -->` for tooling
+- [ ] Header has HTML comment `<!-- VIEW: {name} -->` for tooling
 - [ ] Both wireframes embedded with proper alt text
-- [ ] Components table links to all used component specs
-- [ ] Layout section covers BOTH portrait AND landscape
+- [ ] Child views table links to all used view specs
+- [ ] Layout section covers BOTH portrait AND landscape (where applicable)
 - [ ] Alignment explicitly specified for all containers holding lists
 - [ ] Spacing values documented for both orientations
 - [ ] Content section has exact text strings in backticks
-- [ ] Screen interface documented with inputs, outputs, and callback descriptions
-- [ ] Teletype offsets table totals correctly
+- [ ] View interface documented with inputs, outputs, and callback descriptions
+- [ ] Animation offsets documented (if applicable)
 - [ ] Styling references shared patterns (no duplication)
 - [ ] Implementation reference shows file location and key code
 - [ ] No platform-specific code (Swift, Kotlin, etc.) outside Implementation Reference section
@@ -483,7 +423,5 @@ The `Modals/` folder contains legacy implementations with embedded CRT effects a
 
 | File | Purpose |
 |------|---------|
-| [help-menu-screen/spec.md](./screens/help-menu-screen/spec.md) | Canonical example screen spec |
-| [shared-screen-patterns/spec.md](./screens/shared-screen-patterns/spec.md) | Shared styling rules to reference |
-| [screens/README.md](./screens/README.md) | Screen types and implementation guide |
-| [component-guide.md](../doc/component-guide.md) | How to write component specs |
+| `templates/specs/view-template.md` | View spec template |
+| `docs/how-to-create-a-wireframe.md` | Wireframe creation guide |

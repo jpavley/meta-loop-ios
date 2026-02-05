@@ -12,11 +12,11 @@ Complete the implementation loop: plan the implementation, write code, and revie
 ## Arguments
 
 - `$ARGUMENTS`: Path to the specification to implement
-  - Examples: `specs/screens/my-feature/spec.md` or `specs/components/my-component/spec.md`
+  - Examples: `specs/views/my-feature/spec.md`
 
 ## Prerequisites
 
-This skill implements **Steps 3.1-3.4** of the Meta-Loop process defined in `specs/sw-development-process.md`.
+This skill implements **Steps 3.1-3.4** of the Meta-Loop process defined in `docs/ml-development-process.md`.
 
 The specification should have already passed `/ml-spec` review before invoking this skill.
 
@@ -35,9 +35,9 @@ The specification should have already passed `/ml-spec` review before invoking t
    - Clarifying questions and their answers
    - Key decisions and technical notes
 4. **Read CLAUDE.md** for codebase patterns and conventions
-5. **Load referenced component specs** (follow `../../components/` links)
+5. **Load referenced view specs** (follow links in the spec)
 6. **Explore relevant existing code:**
-   - Similar screens/components for patterns
+   - Similar views for patterns
    - Shared utilities and helpers
    - Theme and styling configuration
 
@@ -138,10 +138,7 @@ Execute each step in the approved order:
 After implementation:
 
 1. **Run build check:**
-   ```
-   /build-check
-   ```
-   Or use XcodeBuild MCP: `mcp__xcodebuild__build_sim`
+   Use your project's build command (see CLAUDE.md), or XcodeBuild MCP: `mcp__xcodebuild__build_sim`
 
 2. **Fix any compilation errors** (these are NOT deviations, just typos)
 
@@ -328,22 +325,19 @@ Learning is preserved in the updated source documents (spec, wireframe, CLAUDE.m
 | 3.5 Implementation Complete | Developer confirms, clears context |
 | 4. Learning Retention | `/ml-retain` |
 
-## Integration with Existing Commands
+## Build Verification Commands
 
-This skill works alongside existing development commands:
+During Phase 2, verify compilation using your project's build tools:
+- **Xcode**: Cmd+B or use the XcodeBuild MCP tools
+- **Command line**: `xcodebuild` or `swift build` for SPM projects
 
-| Command | When to Use |
-|---------|-------------|
-| `/build-check` | During Phase 2 to verify compilation |
-| `/review-screen` | After implementation to compare with spec wireframes |
-| `/review-swift` | For detailed code quality review if needed |
-| `/ios-checklist` | Before considering implementation complete |
+Your CLAUDE.md should document the specific build commands for your project.
 
 ## Build Failure Handling
 
 If the build fails during Phase 2:
 
 1. **Compilation errors are NOT deviations** - Fix them directly
-2. Use `/build-check` or Axiom's `/axiom:fix-build` for diagnostics
+2. Use your project's build diagnostics (Xcode errors, compiler output)
 3. Only proceed to Phase 3 review after build succeeds
 4. **Runtime issues discovered in review ARE deviations** - Follow the fail path

@@ -12,11 +12,11 @@ Complete the specification loop: plan the spec, write it, and review for correct
 ## Arguments
 
 - `$ARGUMENTS`: Path to wireframe(s) that will drive the specification
-  - Examples: `specs/screens/my-feature/wireframe.png` or `specs/screens/my-feature/`
+  - Examples: `specs/views/my-feature/wireframe.png` or `specs/views/my-feature/`
 
 ## Prerequisites
 
-This skill implements **Steps 2.1-2.4** of the Meta-Loop process defined in `specs/sw-development-process.md`.
+This skill implements **Steps 2.1-2.4** of the Meta-Loop process defined in `docs/ml-development-process.md`.
 
 The wireframe should have already passed `/ml-wireframe` review before invoking this skill.
 
@@ -37,8 +37,7 @@ The wireframe should have already passed `/ml-wireframe` review before invoking 
 3. **Read CLAUDE.md** for codebase patterns and conventions
 4. **Check for existing specs** in `specs/` directory that might be referenced
 5. **Identify spec category:**
-   - `specs/screens/` for screen-level features
-   - `specs/components/` for reusable UI components
+   - `specs/views/` for SwiftUI views (screens and reusable components)
    - `specs/services/` for backend services
    - `specs/utilities/` for helper utilities
 
@@ -60,8 +59,8 @@ The plan should outline:
 - Accessibility Considerations
 
 **Existing Patterns to Reference:**
-- Which components from `specs/components/` to reference
-- Which shared patterns from `specs/screens/shared-screen-patterns/` apply
+- Which views from `specs/views/` to reference
+- Which shared patterns apply
 - Architecture patterns from CLAUDE.md
 
 **Architectural Decisions:**
@@ -145,9 +144,9 @@ Write `specs/{category}/{name}/spec.md` following the approved plan.
 ## Layout
 [Description of arrangement, spacing, sections — use tables and prose, not code]
 
-## Components
-[List components with links to component specs]
-- [ComponentName](../../components/{name}/spec.md)
+## Child Views
+[List child views with links to their specs]
+- [ViewName](../{name}/spec.md)
 
 ## Interactive Elements
 | Element | Action | Result |
@@ -184,7 +183,7 @@ This is the ONLY section where Swift/platform code belongs.]
 | `Content VStack` | "Content column" |
 | `.cancellationAction` / `.bottomBar` | "top-left" / "bottom bar" |
 
-**Requirements describe visual behavior, not implementation strategy.** A requirement should describe what the user sees (from the wireframe), not how the developer achieves it. If a sizing or layout directive could be wrong for a different content type, it's an implementation detail — not a requirement. For guidance on what wireframes should annotate, see `specs/how-to-create-a-wireframe.md`.
+**Requirements describe visual behavior, not implementation strategy.** A requirement should describe what the user sees (from the wireframe), not how the developer achieves it. If a sizing or layout directive could be wrong for a different content type, it's an implementation detail — not a requirement. For guidance on what wireframes should annotate, see `docs/how-to-create-a-wireframe.md`.
 
 | Instead of... | Write... |
 |---------------|----------|
@@ -209,8 +208,8 @@ Append the specification phase decisions to `notes.md`:
 - [Any decisions made during spec writing]
 - [Deviations from wireframe review understanding (if any)]
 
-### Components Used
-- [List components referenced in spec]
+### Views Used
+- [List views referenced in spec]
 
 ### Open Questions for Implementation
 - [Any questions that emerged during spec writing]
@@ -229,8 +228,8 @@ After writing, provide a summary:
 - wireframe.png
 - [other files]
 
-**Components Referenced:**
-- [List of existing components used]
+**Views Referenced:**
+- [List of existing views used]
 
 **notes.md Updated:** ✅
 
@@ -369,15 +368,11 @@ Learning is preserved in the updated source documents (wireframe, CLAUDE.md), no
 
 ```
 specs/
-├── screens/                    ← Screen-level specs
-│   └── {screen-name}/
+├── views/                      ← SwiftUI view specs
+│   └── {view-name}/
 │       ├── spec.md
 │       ├── wireframe.png
 │       └── *.png (variants)
-├── components/                 ← Reusable components
-│   └── {component-name}/
-│       ├── spec.md
-│       └── *.png
 ├── services/                   ← Backend services
 └── utilities/                  ← Helper utilities
 ```

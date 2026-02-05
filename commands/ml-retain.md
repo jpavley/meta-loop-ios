@@ -10,7 +10,7 @@ Capture session learnings in documentation before clearing context.
 
 ## Prerequisites
 
-This skill implements **Step 4** of the Meta-Loop process defined in `specs/sw-development-process.md`.
+This skill implements **Step 4** of the Meta-Loop process defined in `docs/ml-development-process.md`.
 
 Use this after a successful implementation pass (`/ml-impl` review passed).
 
@@ -30,7 +30,7 @@ Analyze what happened in this session:
    - What's the scope of changes?
 
 2. **Read the feature's `notes.md`** (if this session followed the Meta-Loop):
-   - Located in the spec directory (e.g., `specs/screens/{name}/notes.md`)
+   - Located in the spec directory (e.g., `specs/views/{name}/notes.md`)
    - Contains decisions from wireframe, spec, and implementation phases
    - Review for learnings that should be promoted to CLAUDE.md or doc/
 
@@ -239,18 +239,6 @@ git push
 - **Detailed knowledge goes in doc/** - Reference from CLAUDE.md, don't inline
 - **Always commit** - Documentation is only valuable if it persists
 - **Clear context after** - Don't carry stale context to the next feature
-
-## Relationship to /done
-
-`/ml-retain` focuses on **learning capture** while `/done` focuses on **session close**.
-
-**Suggested workflow:**
-```
-/ml-retain    # Capture learnings specifically from meta-loop work
-/done         # General session close (if additional commits needed)
-```
-
-Or just use `/ml-retain` if it handles everything needed.
 
 ## What NOT to Capture
 

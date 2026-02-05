@@ -1,7 +1,7 @@
-<!-- SCREEN: screen-name -->
-# Screen Name
+<!-- VIEW: view-name -->
+# View Name
 
-> Brief description of the screen's purpose.
+> Brief description of the view's purpose.
 
 ## Wireframes
 
@@ -17,48 +17,77 @@
 ## Layout Requirements
 
 - **Structure:** Describe the overall layout (vertical stack, grid, etc.)
-- **Key sections:** List the main areas of the screen
+- **Key sections:** List the main areas of the view
 - **Spacing:** Note any important spacing rules
+
+## Child Views
+
+| View | Description | Instances |
+|------|-------------|-----------|
+| HeaderView | View header | 1 |
+| ... | ... | ... |
 
 ## UI Elements
 
 | Element | Description | Styling |
 |---------|-------------|---------|
-| Title | Screen title at top | Modal Title Format (# TITLE #) |
+| Title | View title at top | Header styling |
 | Content area | Main content | Primary color text |
 | ... | ... | ... |
 
 ## Interactive Elements
 
-| Element | Position | SF Symbol | Action | Visibility |
-|---------|----------|-----------|--------|------------|
-| Dismiss | Bottom toolbar | `xmark` | Returns to previous screen | Always |
+| Element | Position | Icon | Action | Visibility |
+|---------|----------|------|--------|------------|
+| Dismiss | Toolbar | X | Returns to previous view | Always |
 | ... | ... | ... | ... | ... |
 
 ## Styling Rules
 
-- Follows [Modal Title Format](../shared-screen-patterns/spec.md#modal-title-format)
-- Follows [Modal Background](../shared-screen-patterns/spec.md#modal-background)
-- Accent color: Inherited from current level
+- Follows project's shared styling patterns (see CLAUDE.md)
+- Accent color: Inherited from theme
 
 ## Content Format
 
 Describe any special text formatting rules:
 
-- Stats format: `LABEL => DATA`
-- Separators (`=>`, `#`, etc.) use secondary color
-- Numeric values use accent color (digit inversion)
+- Data format: `LABEL: VALUE`
+- Any special color treatments
 
 ## Animation
 
-- **Entry:** Teletype effect, elements appear sequentially
-- **Exit:** Fade out or slide
+- **Entry:** Describe entry animation
+- **Exit:** Describe exit animation
+
+## View Interface
+
+**Inputs:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| ... | ... | ... |
+
+**Outputs (callbacks):**
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| onDismiss | — | Called when user dismisses |
+| ... | ... | ... |
 
 ## Implementation Reference
 
-- **SwiftUI file:** `Views/Screens/ScreenNameScreen.swift`
-- **Navigation:** `container.ui.navigateTo(.screenName)`
-- **Dismiss:** `container.ui.dismissToMain()`
+- **SwiftUI file:** `Views/ViewName.swift`
+
+```swift
+struct ViewName: View {
+    // Properties
+    let onDismiss: () -> Void
+
+    var body: some View {
+        // Implementation
+    }
+}
+```
 
 ## Platform Variations
 
@@ -66,7 +95,12 @@ Describe any special text formatting rules:
 |----------|-------------|
 | iPhone Portrait | Default layout |
 | iPhone Landscape | Horizontal arrangement |
-| iPad/Mac | Larger wireframe, same structure |
+| iPad/Mac | Larger, same structure |
+
+## Accessibility
+
+- View announced as "View Name"
+- Interactive elements have appropriate labels
 
 ## Notes
 

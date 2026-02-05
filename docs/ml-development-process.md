@@ -64,7 +64,7 @@ Note: _Learning is preserved in the documentation, not in the code_
 
 ### The Goal: Single-Shot Repeatability & Transferability
 
-![Meta Loop Diagram](/specs/meta-loop-diagram.png)
+![Meta Loop Diagram](./meta-loop-diagram.png)
 
 ### The Four Modes
 

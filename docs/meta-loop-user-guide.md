@@ -6,7 +6,7 @@
 
 This guide teaches you how to use the meta-loop commands (`/ml-wireframe`, `/ml-spec`, `/ml-impl`, `/ml-retain`) to build features with AI assistance. After reading, you'll understand the "delete and regenerate" workflow and be able to deliver production-ready features in single-shot attempts.
 
-**For the theory behind this process**, see [sw-development-process.md](./sw-development-process.md).
+**For the theory behind this process**, see [ml-development-process.md](./ml-development-process.md).
 
 Note: *We use Claude Code as the AI Coding Agent in this document but this process will work for any frontier AI coding assistant.*
 
@@ -86,7 +86,7 @@ Create a simple sketch of what you want to build. This doesn't need to be pixel-
 - Show layout structure (what goes where)
 - Indicate interactive elements (buttons, inputs)
 - Use simple boxes and labels
-- Save as PNG in `specs/screens/<feature>/wireframe.png`
+- Save as PNG in `specs/views/<feature>/wireframe.png`
 
 **Avoid:**
 
@@ -99,7 +99,7 @@ Note: *In this example we're using a wireframe for a UX design but this method w
 ### Step 2: Verify Understanding (`/ml-wireframe`)
 
 ```bash
-/ml-wireframe specs/screens/my-feature/wireframe.png
+/ml-wireframe specs/views/my-feature/wireframe.png
 ```
 
 The AI will describe what it sees and ask clarifying questions.
@@ -113,7 +113,7 @@ The AI will describe what it sees and ask clarifying questions.
 First, clear your context. Then:
 
 ```bash
-/ml-spec specs/screens/my-feature/wireframe.png
+/ml-spec specs/views/my-feature/wireframe.png
 ```
 
 This runs three phases:
@@ -131,7 +131,7 @@ This runs three phases:
 Clear your context again. Then:
 
 ```bash
-/ml-impl specs/screens/my-feature/spec.md
+/ml-impl specs/views/my-feature/spec.md
 ```
 
 Same three-phase pattern: Plan → Write → Review.
@@ -180,7 +180,7 @@ This feels counterintuitive, but it's the key to single-shot repeatability:
 | Spec doesn't match project patterns | Update supporting documentation, then re-run `/ml-spec`     |
 | Code deviates from spec             | Fix the spec first (make it clearer), then regenerate code  |
 | AI asks too many questions          | Add more context to CLAUDE.md or annotate the wireframe     |
-| Same mistake keeps happening        | Add an anti-pattern entry to `doc/swiftui-anti-patterns.md` |
+| Same mistake keeps happening        | Add an anti-pattern entry to your project's documentation |
 
 ---
 
@@ -198,5 +198,6 @@ This feels counterintuitive, but it's the key to single-shot repeatability:
 
 ## Next Steps
 
-- **Full theory**: [sw-development-process.md](./sw-development-process.md)
-- **Command reference**: [doc/slash-commands.md](../doc/slash-commands.md)
+- **Full theory**: [ml-development-process.md](./ml-development-process.md)
+- **Wireframe guide**: [how-to-create-a-wireframe.md](./how-to-create-a-wireframe.md)
+- **Spec writing guide**: [how-to-write-a-view-spec.md](./how-to-write-a-view-spec.md)

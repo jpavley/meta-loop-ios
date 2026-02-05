@@ -13,11 +13,11 @@ Review a wireframe to ensure mutual understanding between developer and AI befor
 
 - `$ARGUMENTS`: Path to wireframe image(s) to review
   - Can be a single image path or a directory containing multiple wireframes
-  - Examples: `specs/screens/my-feature/wireframe.png` or `specs/screens/my-feature/`
+  - Examples: `specs/views/my-feature/wireframe.png` or `specs/views/my-feature/`
 
 ## Prerequisites
 
-This skill implements **Step 1.2** of the Meta-Loop process defined in `specs/sw-development-process.md`.
+This skill implements **Step 1.2** of the Meta-Loop process defined in `docs/ml-development-process.md`.
 
 The developer should have already drawn the wireframe (Step 1.1) before invoking this review.
 
@@ -32,9 +32,9 @@ The developer should have already drawn the wireframe (Step 1.1) before invoking
 
 2. **Load each wireframe image** using the Read tool
 
-3. **Check for component wireframes:**
+3. **Check for reusable view wireframes:**
    - Scan for any elements that appear multiple times
-   - Note if separate component wireframes exist
+   - Note if separate view wireframes exist for reusable patterns
 
 ### Phase 2: Analyze
 
@@ -45,9 +45,9 @@ Describe your understanding of the wireframe. Cover:
    - Major sections and their relationships
    - Spacing and alignment patterns
 
-2. **Components Identified:**
+2. **Views Identified:**
    - UI elements visible (buttons, text fields, lists, etc.)
-   - Reusable patterns that could be components
+   - Reusable patterns that could be extracted as views
    - Data display areas
 
 3. **Data Flow:**
@@ -62,7 +62,7 @@ Describe your understanding of the wireframe. Cover:
 
 5. **Codebase Patterns:**
    - Reference existing patterns from CLAUDE.md that apply
-   - Note any existing components that could be reused
+   - Note any existing views that could be reused
    - Identify architectural patterns that fit
 
 ### Phase 3: Clarify
@@ -82,7 +82,7 @@ Bad questions restate what the wireframe already shows, or are generic:
 - "Where does the data come from?" (when the wireframe annotation already says)
 
 Implementation questions ask HOW a requirement will be achieved rather than WHAT the wireframe intends. These belong to the implementor, not the spec:
-- "How will the CRT exclusion be layered?" (wireframe says "should not receive CRT effects" — that's a clear requirement, not an open question)
+- "How will this overlay be layered?" (wireframe shows layering — that's a clear requirement, not an open question)
 - "Should this use a ZStack or overlay?" (implementation choice)
 - "What SwiftUI modifier achieves this?" (implementation detail)
 
@@ -105,13 +105,13 @@ Evaluate whether the wireframe is clear enough to drive specification creation.
 - Missing critical sections
 - Conflicting visual signals
 
-### Phase 5: Learn Screen Spec Format (PASS only)
+### Phase 5: Learn View Spec Format (PASS only)
 
 **If the wireframe passes review**, before providing the verdict:
 
-1. **Read the screen spec guide:** Use the Read tool to load `specs/how-to-write-a-screen-spec.md`
-2. **Review the canonical example:** Read `specs/screens/help-menu-screen/spec.md` as a reference
-3. **Note key patterns:** Identify which sections from the guide apply to this screen
+1. **Read the view spec guide:** Use the Read tool to load `docs/how-to-write-a-view-spec.md`
+2. **Review the template:** Read `templates/specs/view-template.md` as a reference
+3. **Note key patterns:** Identify which sections from the guide apply to this view
 
 This ensures you understand the spec format before the developer runs `/ml-spec`.
 
@@ -130,7 +130,7 @@ This ensures you understand the spec format before the developer runs `/ml-spec`
 
 **Template:**
 ```markdown
-# {Screen Name} Design Decisions
+# {View Name} Design Decisions
 
 > Decisions captured during Meta-Loop phases. Each phase appends its findings.
 
@@ -149,10 +149,10 @@ This ensures you understand the spec format before the developer runs `/ml-spec`
 
 [1-2 sentence summary of what will be built]
 
-### Key Components
+### Key Views
 
-- [Component 1]
-- [Component 2]
+- [View 1]
+- [View 2]
 
 ### Error States
 
@@ -181,10 +181,10 @@ The wireframe is clear enough to proceed with specification creation.
 ### Key Decisions Captured
 - [Decision 1 from clarifying questions, OR "No open questions — wireframe annotations covered all design decisions."]
 
-### Screen Spec Sections Identified
-Based on `specs/how-to-write-a-screen-spec.md`, this screen will need:
-- [List the spec sections that apply, e.g., "Components table (Modal Title, Page Background, etc.)"]
-- [E.g., "Data Model section (document ID to file mapping)"]
+### View Spec Sections Identified
+Based on `docs/how-to-write-a-view-spec.md`, this view will need:
+- [List the spec sections that apply, e.g., "Child views table"]
+- [E.g., "Data Model section"]
 - [E.g., "No Error Handling section needed (read-only display)"]
 
 ### Next Step
