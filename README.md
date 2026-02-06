@@ -26,14 +26,24 @@ Meta-Loop inverts traditional software economics:
 
 **Learning is preserved in the documentation, not in the code.**
 
-## The Four Commands
+## Commands
 
-| Command | Purpose |
-|---------|---------|
-| `/ml-wireframe` | Review wireframe to verify AI understanding |
-| `/ml-spec` | Create specification from wireframe |
-| `/ml-impl` | Implement from specification |
-| `/ml-retain` | Capture learnings before clearing context |
+| Command | Argument | Purpose |
+|---------|----------|---------|
+| `/ml-wireframe` | `wireframe_path` | Review wireframe to verify AI understanding |
+| `/ml-spec` | `wireframe_path` | Create specification from wireframe |
+| `/ml-impl` | `spec_path` | Implement from specification |
+| `/ml-retain` | — | Capture learnings before clearing context |
+
+## Skills
+
+Skills are reference documents the AI reads during command execution.
+
+| Skill | Description |
+|-------|-------------|
+| [meta-loop-methodology](skills/meta-loop-methodology/SKILL.md) | Full development process theory and practical user guide |
+| [wireframe-design](skills/wireframe-design/SKILL.md) | Tips for creating wireframes that drive accurate specs |
+| [view-specifications](skills/view-specifications/SKILL.md) | Guide and template for writing view specification documents |
 
 ## The Flow
 
@@ -58,6 +68,37 @@ Meta-Loop inverts traditional software economics:
 4. Regenerate from the improved source
 5. Now anyone can reproduce it
 
+## Example Workflows
+
+### New Feature (full loop)
+
+```bash
+# 1. Draw your wireframe, save to specs/views/my-feature/wireframe.png
+
+# 2. Verify the AI understands it
+/ml-wireframe specs/views/my-feature/wireframe.png
+
+# 3. Clear context, then generate the spec
+/ml-spec specs/views/my-feature/wireframe.png
+
+# 4. Clear context, then implement from spec
+/ml-impl specs/views/my-feature/spec.md
+
+# 5. Capture what you learned
+/ml-retain
+```
+
+### Fixing a Deviation
+
+```bash
+# Implementation review failed — spec was unclear
+# 1. Update the wireframe or supporting docs to clarify
+# 2. Delete the bad spec and code
+# 3. Regenerate
+/ml-spec specs/views/my-feature/wireframe.png
+/ml-impl specs/views/my-feature/spec.md
+```
+
 ## Installation
 
 ### Option 1: Clone and install
@@ -74,14 +115,7 @@ cd /path/to/your/project
 ### Option 2: Manual installation
 
 1. Copy `commands/*.md` to your project's `.claude/commands/` directory
-2. Copy `docs/*.md` to your project's `docs/meta-loop/` directory
-3. Copy `templates/specs/view-template.md` to your `specs/views/` directory
-
-## Getting Started
-
-1. **Read the user guide**: [docs/meta-loop-user-guide.md](docs/meta-loop-user-guide.md)
-2. **Understand the theory**: [docs/ml-development-process.md](docs/ml-development-process.md)
-3. **Learn wireframe tips**: [docs/how-to-create-a-wireframe.md](docs/how-to-create-a-wireframe.md)
+2. Copy the `skills/` directory to your project's `.claude/skills/` directory
 
 ## Requirements
 
@@ -93,21 +127,22 @@ cd /path/to/your/project
 
 ```
 meta-loop-ios/
-├── commands/           # Slash commands
+├── .claude-plugin/
+│   └── plugin.json         # Plugin manifest
+├── commands/               # Slash commands
 │   ├── ml-wireframe.md
 │   ├── ml-spec.md
 │   ├── ml-impl.md
 │   └── ml-retain.md
-├── docs/               # Methodology documentation
-│   ├── ml-development-process.md
-│   ├── meta-loop-user-guide.md
-│   ├── how-to-create-a-wireframe.md
-│   └── how-to-write-a-view-spec.md
-├── templates/          # Spec templates
-│   └── specs/
-│       └── view-template.md
-├── install.sh          # Installation script
-├── plugin.json         # Plugin manifest
+├── skills/                 # Reference skills
+│   ├── meta-loop-methodology/
+│   │   ├── SKILL.md
+│   │   └── meta-loop-diagram.png
+│   ├── wireframe-design/
+│   │   └── SKILL.md
+│   └── view-specifications/
+│       └── SKILL.md
+├── install.sh
 └── README.md
 ```
 

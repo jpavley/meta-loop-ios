@@ -1,6 +1,6 @@
 ---
 description: Full specification loop - plan, write, and review spec (Meta-Loop Steps 2.1-2.4)
-arguments: wireframe_path
+argument-hint: wireframe_path
 ---
 
 # Meta-Loop: Specification Loop
@@ -16,7 +16,7 @@ Complete the specification loop: plan the spec, write it, and review for correct
 
 ## Prerequisites
 
-This skill implements **Steps 2.1-2.4** of the Meta-Loop process defined in `docs/ml-development-process.md`.
+This skill implements **Steps 2.1-2.4** of the Meta-Loop process defined in `skills/meta-loop-methodology/SKILL.md`.
 
 The wireframe should have already passed `/ml-wireframe` review before invoking this skill.
 
@@ -183,7 +183,7 @@ This is the ONLY section where Swift/platform code belongs.]
 | `Content VStack` | "Content column" |
 | `.cancellationAction` / `.bottomBar` | "top-left" / "bottom bar" |
 
-**Requirements describe visual behavior, not implementation strategy.** A requirement should describe what the user sees (from the wireframe), not how the developer achieves it. If a sizing or layout directive could be wrong for a different content type, it's an implementation detail — not a requirement. For guidance on what wireframes should annotate, see `docs/how-to-create-a-wireframe.md`.
+**Requirements describe visual behavior, not implementation strategy.** A requirement should describe what the user sees (from the wireframe), not how the developer achieves it. If a sizing or layout directive could be wrong for a different content type, it's an implementation detail — not a requirement. For guidance on what wireframes should annotate, see `skills/wireframe-design/SKILL.md`.
 
 | Instead of... | Write... |
 |---------------|----------|

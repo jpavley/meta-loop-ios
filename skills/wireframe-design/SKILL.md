@@ -1,3 +1,8 @@
+---
+name: wireframe-design
+description: Tips and guidelines for creating wireframes that drive accurate specifications via the Meta-Loop process
+---
+
 # How to Create a Wireframe
 
 > Tips for creating wireframes that drive accurate specs via `/ml-spec`
@@ -6,7 +11,7 @@
 
 Wireframes are the primary input to the Meta-Loop specification process. The AI reads your wireframe and generates a specification document from it. These tips help you create wireframes that communicate your intent clearly — especially the parts the AI is likely to misunderstand.
 
-**For the full Meta-Loop process**, see [sw-development-process.md](./sw-development-process.md) and [meta-loop-user-guide.md](./meta-loop-user-guide.md).
+**For the full Meta-Loop process**, see the [meta-loop-methodology](../meta-loop-methodology/SKILL.md) skill.
 
 ---
 

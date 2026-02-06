@@ -1,3 +1,8 @@
+---
+name: meta-loop-methodology
+description: Complete Meta-Loop development process theory and practical user guide for AI-assisted software development
+---
+
 # Software Development Process with Agentic Interfaces
 
 > **Summary:** This document describes a "meta loop" where a single experienced developer collaborates with AI coding agents (like Claude Code) to achieve **single-shot repeatability and transferability**—the ability to deliver production-ready software in one attempt, reproducibly, across different platforms. The process flows through three loops (Wireframe → Specification → Implementation), each using four modes: **Human Action** (manual work), **Plan Mode** (AI creates structured plans), **Ask Mode** (AI reviews and provides feedback), and **Agent Mode** (AI executes the plan). The key insight is "delete and regenerate"—when errors occur, artifacts are deleted rather than patched, and the *documentation* is improved so the AI can regenerate correctly. This inverts traditional economics: code becomes cheap to regenerate while documentation becomes the persistent value that preserves learning across sessions.
@@ -96,7 +101,7 @@ This "delete and regenerate" pattern preserves learning in documentation rather 
 
 The developer draws a picture, a diagram, or visualization of the task at hand. It may be a flow chart, a screen, an architectural diagram. The picture is a simplified schematic with just enough detail to visually explain the task. Precise sizing, placement, connections, and scoping is not required and hurts the process. The AI is good at discrimination and too many details too early is a waste of time and leads to constrained, suboptimal outcomes. This initial step is akin to drawing an idea on the whiteboard.
 
-> 💡 **Best Practice:** Break down complex wireframes into component wireframes. Any element that appears multiple times or in multiple wireframes should be treated as a component with its own separate wireframe. This ensures code reuse, better context window management, and fewer tokens.
+> **Best Practice:** Break down complex wireframes into component wireframes. Any element that appears multiple times or in multiple wireframes should be treated as a component with its own separate wireframe. This ensures code reuse, better context window management, and fewer tokens.
 
 #### 1.2 Wireframe Review `[Ask Mode]`
 
@@ -104,7 +109,7 @@ The developer uses a prompt (or better a skill) to ensure the AI understands the
 
 The developer doesn't explain the diagram to the AI. Instead, the developer updates the wireframe until the AI understands it in a "single shot".
 
-> ⚠️ **Avoid Over-Specification:** Sometimes the AI will suggest that the wireframe contains implementation details, sizing, and other specifics. This should be avoided. The wireframe is not the spec—it is a tool that the AI will use to generate the spec.
+> **Avoid Over-Specification:** Sometimes the AI will suggest that the wireframe contains implementation details, sizing, and other specifics. This should be avoided. The wireframe is not the spec—it is a tool that the AI will use to generate the spec.
 
 **If review fails:** Update the wireframe and return to step 1.1.
 
@@ -157,9 +162,9 @@ The erroneous spec is **deleted** and the process loops back to 2.1—the learni
 
 **If review fails:** Delete the spec and return to step 2.1.
 
-> 💡 **Best Practice:** A codebase needs extra-specification documentation that describes architectural and implementation strategies. These documents include READMEs, CONSTITUTIONs, SHARED-PATTERNs, ARCHITECTURAL-DECISIONs, and AGENTs (or equivalent) files. A spec should be short and specific to a single feature, screen, or service. The AI is perfectly capable of writing and maintaining these documents.
+> **Best Practice:** A codebase needs extra-specification documentation that describes architectural and implementation strategies. These documents include READMEs, CONSTITUTIONs, SHARED-PATTERNs, ARCHITECTURAL-DECISIONs, and AGENTs (or equivalent) files. A spec should be short and specific to a single feature, screen, or service. The AI is perfectly capable of writing and maintaining these documents.
 
-> 📝 **Context Management:** Clear the context often so that project knowledge is externalized to documentation and not hidden in the current context. Clear the context after completing this loop.
+> **Context Management:** Clear the context often so that project knowledge is externalized to documentation and not hidden in the current context. Clear the context after completing this loop.
 
 #### 2.5 Specification Complete `[Human Action]`
 
@@ -197,7 +202,7 @@ Once the developer finds the plan acceptable, they instruct the AI to enter "age
 
 The AI generates the code, tests, infrastructure, and configurations.
 
-> 💡 **Best Practice:** Implementation includes code, tests, infrastructure, and configurations. A good implementation is a complete and independent "package" that can be integrated or deployed in isolation of the rest of the system that the feature, screen, or service is supporting (ideally).
+> **Best Practice:** Implementation includes code, tests, infrastructure, and configurations. A good implementation is a complete and independent "package" that can be integrated or deployed in isolation of the rest of the system that the feature, screen, or service is supporting (ideally).
 
 #### 3.4 Implementation Review `[Ask Mode]`
 
@@ -213,7 +218,7 @@ The erroneous implementation is **deleted** and the process loops back to 3.1.
 
 **If review fails:** Delete the implementation and return to step 3.1.
 
-> 📝 **Don't Fear Deletion:** Don't worry about "throwing work away" as the cost of the AI regenerating work is near zero while the cost of not retaining knowledge is losing single-shot repeatability and transferability.
+> **Don't Fear Deletion:** Don't worry about "throwing work away" as the cost of the AI regenerating work is near zero while the cost of not retaining knowledge is losing single-shot repeatability and transferability.
 
 #### 3.5 Implementation Complete `[Human Action]`
 
@@ -231,7 +236,7 @@ After a feature, screen, or service is successfully completed in a single-shot, 
 
 Together, these files serve as the AI's external memory.
 
-> ⚠️ **Context Window Warning:** Make sure the AI doesn't put too much specific project knowledge in its agent file because these files eat up context window and get rewritten. The info in an agent file is not retained in the long run—use separate documentation files for detailed knowledge.
+> **Context Window Warning:** Make sure the AI doesn't put too much specific project knowledge in its agent file because these files eat up context window and get rewritten. The info in an agent file is not retained in the long run—use separate documentation files for detailed knowledge.
 
 Once the developer is happy with the plan, they can instruct the AI to enter agent mode to update and maintain all extra-specification documentation including a TODO file that it updates with every step in this loop and at the end of every session.
 
@@ -244,3 +249,138 @@ It is the responsibility of the developer to use agent mode, plan mode, and ask 
 ### 5. Repeat
 
 Take a break, exit the CLI, and return to step 1 when you're ready for the next feature, screen, or service.
+
+---
+
+# Practical User Guide
+
+> A practical guide for developers new to AI coding agents
+
+## What You'll Learn
+
+This guide teaches you how to use the meta-loop commands (`/ml-wireframe`, `/ml-spec`, `/ml-impl`, `/ml-retain`) to build features with AI assistance. After reading, you'll understand the "delete and regenerate" workflow and be able to deliver production-ready features in single-shot attempts.
+
+## Before You Begin
+
+### The Mindset Shift
+
+- Traditional development: *Code is expensive, documentation is nice-to-have.*
+- AI-assisted development: **Code is cheap and easy, documentation is the valuable asset.**
+
+Your learning lives in the documentation (wireframes, specs, supporting docs), not in accumulated patches. When something goes wrong, you update the source docs and regenerate—you don't fix the output.
+
+### What the AI Needs From You
+
+| You Provide                    | AI Uses It To                   |
+| ------------------------------ | ------------------------------- |
+| Clear wireframes               | Understand your intent visually |
+| Curated documentation          | Follow your project's patterns  |
+| Oversight and verification     | Catch deviations                |
+| Domain knowledge               | Answer clarifying questions     |
+
+### What You DON'T Need To Do
+
+- Write detailed implementation instructions
+- Fix AI-generated code by hand
+- Explain concepts the AI should already know
+
+---
+
+## Step-by-Step: Your First Feature
+
+### Step 1: Draw Your Wireframe
+
+Create a simple sketch of what you want to build. This doesn't need to be pixel-perfect—think whiteboard quality.
+
+**Good wireframes:**
+
+- Show layout structure (what goes where)
+- Indicate interactive elements (buttons, inputs)
+- Use simple boxes and labels
+- Save as PNG in `specs/views/<feature>/wireframe.png`
+
+**Avoid:**
+
+- Exact dimensions or spacing
+- Color specifications
+- Implementation details (APIs, data structures)
+
+### Step 2: Verify Understanding (`/ml-wireframe`)
+
+```bash
+/ml-wireframe specs/views/my-feature/wireframe.png
+```
+
+The AI will describe what it sees and ask clarifying questions.
+
+**If PASS:** You'll see a summary of understanding. Proceed to Step 3.
+
+**If FAIL:** You'll see specific issues. Ask the AI *why* it didn't understand the wireframe. Update your wireframe to clarify the design—don't fix issues in chat. Re-run the command to discover if the AI can read the improved wireframe and understand your intent.
+
+### Step 3: Create the Spec (`/ml-spec`)
+
+First, clear your context. Then:
+
+```bash
+/ml-spec specs/views/my-feature/wireframe.png
+```
+
+This runs three phases:
+
+1. **Plan** — AI proposes spec structure; you approve or ask for changes
+2. **Write** — AI writes the specification
+3. **Review** — AI checks its own work against the wireframe
+
+**If PASS:** Proceed to Step 4.
+
+**If FAIL:** Delete the generated spec, ask the AI clarifying questions, ask the AI to create supporting documentation, improve the wireframe based on the feedback, and re-run `/ml-spec`.
+
+### Step 4: Implement (`/ml-impl`)
+
+Clear your context again. Then:
+
+```bash
+/ml-impl specs/views/my-feature/spec.md
+```
+
+Same three-phase pattern: Plan → Write → Review.
+
+**If PASS:** Proceed to Step 5.
+
+**If FAIL:** Delete the generated code, improve the spec or docs, and re-run `/ml-impl`.
+
+### Step 5: Capture Learnings (`/ml-retain`)
+
+```bash
+/ml-retain
+```
+
+This updates TODO.md, CLAUDE.md (AGENTS.md), and any new `doc/` files with patterns discovered during the session. It commits and pushes your changes.
+
+### Step 6: Clear Context and Repeat
+
+Exit the AI CLI and start a new instance. You're ready for the next feature.
+
+---
+
+## Troubleshooting
+
+| Problem                             | Solution                                                    |
+| ----------------------------------- | ----------------------------------------------------------- |
+| AI misunderstands wireframe         | Simplify the wireframe, remove ambiguous elements           |
+| Spec doesn't match project patterns | Update supporting documentation, then re-run `/ml-spec`     |
+| Code deviates from spec             | Fix the spec first (make it clearer), then regenerate code  |
+| AI asks too many questions          | Add more context to CLAUDE.md or annotate the wireframe     |
+| Same mistake keeps happening        | Add an anti-pattern entry to your project's documentation |
+
+---
+
+## Tips for Success
+
+- **Keep wireframes simple** — Whiteboard quality is perfect
+- **Clear context between loops** — Fresh context = clean generation
+- **Trust the process** — Deletion is cheap; knowledge is preserved in docs
+- **Update supporting documentation early and often** — When you discover a pattern, document it immediately
+- **Answer questions briefly** — The AI will incorporate your answers; don't over-explain
+- **Suggested supporting documentation** - TODO.md, SHARED-PATTERNS.md, NOTEBOOK.md, DECISIONS.md
+- **Curate your agents memory file** - make sure project knowledge that needs to be preserved between instances is in supporting documentation not only CLAUDE.md or AGENTS.md

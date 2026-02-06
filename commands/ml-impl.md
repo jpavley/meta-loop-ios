@@ -1,6 +1,6 @@
 ---
 description: Full implementation loop - plan, write, and review code (Meta-Loop Steps 3.1-3.4)
-arguments: spec_path
+argument-hint: spec_path
 ---
 
 # Meta-Loop: Implementation Loop
@@ -16,7 +16,7 @@ Complete the implementation loop: plan the implementation, write code, and revie
 
 ## Prerequisites
 
-This skill implements **Steps 3.1-3.4** of the Meta-Loop process defined in `docs/ml-development-process.md`.
+This skill implements **Steps 3.1-3.4** of the Meta-Loop process defined in `skills/meta-loop-methodology/SKILL.md`.
 
 The specification should have already passed `/ml-spec` review before invoking this skill.
 

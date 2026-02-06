@@ -1,6 +1,6 @@
 ---
 description: Review wireframe to ensure AI understanding before spec creation (Meta-Loop Step 1.2)
-arguments: wireframe_path
+argument-hint: wireframe_path
 ---
 
 # Meta-Loop: Wireframe Review
@@ -17,7 +17,7 @@ Review a wireframe to ensure mutual understanding between developer and AI befor
 
 ## Prerequisites
 
-This skill implements **Step 1.2** of the Meta-Loop process defined in `docs/ml-development-process.md`.
+This skill implements **Step 1.2** of the Meta-Loop process defined in `skills/meta-loop-methodology/SKILL.md`.
 
 The developer should have already drawn the wireframe (Step 1.1) before invoking this review.
 
@@ -109,8 +109,8 @@ Evaluate whether the wireframe is clear enough to drive specification creation.
 
 **If the wireframe passes review**, before providing the verdict:
 
-1. **Read the view spec guide:** Use the Read tool to load `docs/how-to-write-a-view-spec.md`
-2. **Review the template:** Read `templates/specs/view-template.md` as a reference
+1. **Read the view spec guide:** Use the Read tool to load `skills/view-specifications/SKILL.md`
+2. **Review the template:** The template is included in the view-specifications skill
 3. **Note key patterns:** Identify which sections from the guide apply to this view
 
 This ensures you understand the spec format before the developer runs `/ml-spec`.
@@ -182,7 +182,7 @@ The wireframe is clear enough to proceed with specification creation.
 - [Decision 1 from clarifying questions, OR "No open questions — wireframe annotations covered all design decisions."]
 
 ### View Spec Sections Identified
-Based on `docs/how-to-write-a-view-spec.md`, this view will need:
+Based on `skills/view-specifications/SKILL.md`, this view will need:
 - [List the spec sections that apply, e.g., "Child views table"]
 - [E.g., "Data Model section"]
 - [E.g., "No Error Handling section needed (read-only display)"]

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Meta-Loop iOS - Manual Installation Script
 #
-# This script installs the Meta-Loop commands into your project.
+# This script installs the Meta-Loop commands and skills into your project.
 # Run from your project's root directory.
 
 set -e
@@ -28,12 +28,11 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Define target directories
 COMMANDS_DIR=".claude/commands"
-DOCS_DIR="docs/meta-loop"
+SKILLS_DIR=".claude/skills"
 
 # Create directories
 echo "Creating directories..."
 mkdir -p "$COMMANDS_DIR"
-mkdir -p "$DOCS_DIR"
 
 # Copy commands
 echo "Installing commands..."
@@ -42,22 +41,9 @@ cp "$SCRIPT_DIR/commands/ml-spec.md" "$COMMANDS_DIR/"
 cp "$SCRIPT_DIR/commands/ml-impl.md" "$COMMANDS_DIR/"
 cp "$SCRIPT_DIR/commands/ml-retain.md" "$COMMANDS_DIR/"
 
-# Copy docs
-echo "Installing documentation..."
-cp "$SCRIPT_DIR/docs/ml-development-process.md" "$DOCS_DIR/"
-cp "$SCRIPT_DIR/docs/meta-loop-user-guide.md" "$DOCS_DIR/"
-cp "$SCRIPT_DIR/docs/how-to-create-a-wireframe.md" "$DOCS_DIR/"
-cp "$SCRIPT_DIR/docs/how-to-write-a-view-spec.md" "$DOCS_DIR/"
-
-# Copy diagram
-if [ -f "$SCRIPT_DIR/docs/meta-loop-diagram.png" ]; then
-    cp "$SCRIPT_DIR/docs/meta-loop-diagram.png" "$DOCS_DIR/"
-fi
-
-# Copy template
-echo "Installing templates..."
-mkdir -p "specs/views"
-cp "$SCRIPT_DIR/templates/specs/view-template.md" "specs/views/"
+# Copy skills
+echo "Installing skills..."
+cp -r "$SCRIPT_DIR/skills" "$SKILLS_DIR"
 
 echo ""
 echo -e "${GREEN}Installation complete!${NC}"
@@ -67,8 +53,7 @@ echo "  - $COMMANDS_DIR/ml-wireframe.md"
 echo "  - $COMMANDS_DIR/ml-spec.md"
 echo "  - $COMMANDS_DIR/ml-impl.md"
 echo "  - $COMMANDS_DIR/ml-retain.md"
-echo "  - $DOCS_DIR/ (documentation)"
-echo "  - specs/views/view-template.md"
+echo "  - $SKILLS_DIR/ (skills)"
 echo ""
 echo -e "${YELLOW}Next steps:${NC}"
 echo "1. Add the following to your CLAUDE.md:"
@@ -81,5 +66,5 @@ echo "   | /ml-spec | Create specification from wireframe |"
 echo "   | /ml-impl | Implement from specification |"
 echo "   | /ml-retain | Capture learnings before clearing context |"
 echo ""
-echo "2. Read docs/meta-loop/meta-loop-user-guide.md to get started"
+echo "2. Read .claude/skills/meta-loop-methodology/SKILL.md to get started"
 echo ""

@@ -1,6 +1,11 @@
+---
+name: view-specifications
+description: Guide for writing view specification documents and a starter template for SwiftUI and cross-platform views
+---
+
 # How to Write a View Spec
 
-> This guide teaches Claude how to write specification documents for SwiftUI views. Use this alongside the view template as your reference.
+> This guide teaches Claude how to write specification documents for SwiftUI views. Use this alongside the template section below as your reference.
 
 ## Key Concepts
 
@@ -78,7 +83,7 @@ This prevents the view spec from duplicating child view behavior or making incor
 
 ## Spec File Structure
 
-Every view spec follows this structure. Use `templates/specs/view-template.md` as your starting point.
+Every view spec follows this structure. Use the template at the end of this document as your starting point.
 
 ### 1. Header
 
@@ -274,7 +279,7 @@ Document the view's inputs and outputs:
 | Event | Payload | Description |
 |-------|---------|-------------|
 | onSelectItem | item | Called when user taps an item |
-| onDismiss | — | Called when user taps dismiss |
+| onDismiss | — | Called when user dismisses |
 
 **Callback pattern:** The view doesn't know where to navigate — it receives callbacks from its parent. The parent provides the navigation logic.
 ```
@@ -419,9 +424,118 @@ If you're describing internal child view behavior in a parent view spec, stop an
 - [ ] No platform-specific code (Swift, Kotlin, etc.) outside Implementation Reference section
 - [ ] Notes section captures any non-obvious requirements from wireframe annotations
 
-## Reference Files
+---
 
-| File | Purpose |
-|------|---------|
-| `templates/specs/view-template.md` | View spec template |
-| `docs/how-to-create-a-wireframe.md` | Wireframe creation guide |
+## Template
+
+Use this template as the starting point for new view specs:
+
+```markdown
+<!-- VIEW: view-name -->
+# View Name
+
+> Brief description of the view's purpose.
+
+## Wireframes
+
+### Portrait
+![Portrait wireframe](./portrait.png)
+
+### Landscape
+![Landscape wireframe](./landscape.png)
+
+### Tablet (optional)
+![Tablet wireframe](./tablet.png)
+
+## Layout Requirements
+
+- **Structure:** Describe the overall layout (vertical stack, grid, etc.)
+- **Key sections:** List the main areas of the view
+- **Spacing:** Note any important spacing rules
+
+## Child Views
+
+| View | Description | Instances |
+|------|-------------|-----------|
+| HeaderView | View header | 1 |
+| ... | ... | ... |
+
+## UI Elements
+
+| Element | Description | Styling |
+|---------|-------------|---------|
+| Title | View title at top | Header styling |
+| Content area | Main content | Primary color text |
+| ... | ... | ... |
+
+## Interactive Elements
+
+| Element | Position | Icon | Action | Visibility |
+|---------|----------|------|--------|------------|
+| Dismiss | Toolbar | X | Returns to previous view | Always |
+| ... | ... | ... | ... | ... |
+
+## Styling Rules
+
+- Follows project's shared styling patterns (see CLAUDE.md)
+- Accent color: Inherited from theme
+
+## Content Format
+
+Describe any special text formatting rules:
+
+- Data format: `LABEL: VALUE`
+- Any special color treatments
+
+## Animation
+
+- **Entry:** Describe entry animation
+- **Exit:** Describe exit animation
+
+## View Interface
+
+**Inputs:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| ... | ... | ... |
+
+**Outputs (callbacks):**
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| onDismiss | — | Called when user dismisses |
+| ... | ... | ... |
+
+## Implementation Reference
+
+- **SwiftUI file:** `Views/ViewName.swift`
+
+\```swift
+struct ViewName: View {
+    // Properties
+    let onDismiss: () -> Void
+
+    var body: some View {
+        // Implementation
+    }
+}
+\```
+
+## Platform Variations
+
+| Platform | Differences |
+|----------|-------------|
+| iPhone Portrait | Default layout |
+| iPhone Landscape | Horizontal arrangement |
+| iPad/Mac | Larger, same structure |
+
+## Accessibility
+
+- View announced as "View Name"
+- Interactive elements have appropriate labels
+
+## Notes
+
+Any additional implementation notes or design decisions.
+```

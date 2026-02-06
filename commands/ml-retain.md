@@ -10,7 +10,7 @@ Capture session learnings in documentation before clearing context.
 
 ## Prerequisites
 
-This skill implements **Step 4** of the Meta-Loop process defined in `docs/ml-development-process.md`.
+This skill implements **Step 4** of the Meta-Loop process defined in `skills/meta-loop-methodology/SKILL.md`.
 
 Use this after a successful implementation pass (`/ml-impl` review passed).
 
