@@ -16,6 +16,7 @@ skills/                      # Reference docs (installed to .claude/skills/)
   meta-loop-methodology/     # Process theory + user guide
   wireframe-design/          # Wireframe creation tips
   view-specifications/       # Spec writing guide + template
+  project-structure/         # Directory layout + file responsibilities
 install.sh                   # Copies commands + skills into a target project
 ```
 

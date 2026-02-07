@@ -48,6 +48,7 @@ Skills are reference documents the AI reads during command execution.
 | [meta-loop-methodology](skills/meta-loop-methodology/SKILL.md) | Full development process theory and practical user guide    |
 | [wireframe-design](skills/wireframe-design/SKILL.md)           | Tips for creating wireframes that drive accurate specs      |
 | [view-specifications](skills/view-specifications/SKILL.md)     | Guide and template for writing view specification documents |
+| [project-structure](skills/project-structure/SKILL.md)         | Directory layout, file responsibilities, and Xcode integration |
 
 ## The Flow
 
@@ -159,7 +160,31 @@ cd /path/to/your/project
 - iOS/SwiftUI project
 - Git for version control
 
-## Project Structure
+## Your Project Layout
+
+After installing meta-loop and running `/ml-setup`, your Xcode project will look like this:
+
+```
+MyApp/
+├── MyApp.xcodeproj              # You create
+├── MyApp/                       # Swift source (in Xcode project)
+├── MyAppTests/                  # Test source (in Xcode project)
+├── CLAUDE.md                    # ml-setup creates, you maintain
+├── .claude/                     # install.sh creates
+│   ├── commands/                #   slash commands
+│   └── skills/                  #   reference docs
+├── specs/views/                 # ml-setup creates
+│   └── feature-name/
+│       ├── wireframe.png        #   you create (drawing tool)
+│       └── spec.md              #   ml-spec generates
+├── supporting-docs/             # ml-setup creates
+│   └── about-this-app.md       #   you create
+└── doc/                         # ml-retain creates on first use
+```
+
+Only Swift source and assets belong in the Xcode project navigator. Everything else stays in the repo but outside Xcode. For the full layout, file responsibility matrix, and `.gitignore` guidance, see [project-structure](skills/project-structure/SKILL.md).
+
+## Plugin Repository Structure
 
 ```ascii
 meta-loop-ios/

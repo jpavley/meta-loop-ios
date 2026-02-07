@@ -89,6 +89,7 @@ Reference docs are in `.claude/skills/`:
 - `meta-loop-methodology/` — Process theory and user guide
 - `wireframe-design/` — Wireframe creation tips
 - `view-specifications/` — Spec writing guide and template
+- `project-structure/` — Directory layout and file responsibilities
 ```
 
 ### 3.2 `PROJECT-NOTES.md`
@@ -207,7 +208,11 @@ verify code without leaving the conversation.
 2. **Fill in `CLAUDE.md`** — Replace the placeholders with your actual project
    details (app name, build commands, project structure).
 
-3. **Restart Claude Code** to activate any newly installed slash commands.
+3. **Review the project layout** — See `.claude/skills/project-structure/SKILL.md`
+   for the full directory layout, file responsibility matrix, and what belongs
+   in the Xcode project navigator vs. the repo.
+
+4. **Restart Claude Code** to activate any newly installed slash commands.
 
 ---
 
