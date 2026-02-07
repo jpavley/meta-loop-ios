@@ -1,12 +1,13 @@
 # Meta-Loop iOS
 
-*Draw, spec, code, learn, repeat*
+>Draw, spec, code, learn, repeat
 
-AI-assisted iOS development methodology for high probability single-shot repeatability. Build features with AI coding agents using a structured wireframe → spec → implementation → learning retention workflow.
+AI-assisted iOS development methodology for high probability single-shot repeatability. Build features with AI coding agents using a structured `wireframe → spec → implementation → learning retention` workflow.
 
 ## The Problem
 
 Traditional development with AI coding agents often results in:
+
 - Multiple iterations to get things right
 - Lost context between sessions
 - Knowledge trapped in conversation history
@@ -16,47 +17,67 @@ Traditional development with AI coding agents often results in:
 
 Meta-Loop inverts traditional software economics:
 
-| Traditional | Meta-Loop |
-|-------------|-----------|
-| Code is expensive to write | Code is cheap to regenerate |
-| Documentation often skipped | Documentation is the persistent value |
-| Knowledge lives in developers' heads | Knowledge is externalized to docs |
-| Iteration is costly | Iteration is nearly free |
-| Spec is refined at the end | Spec (and wireframe) is refined after each step |
+| Traditional                          | Meta-Loop                                       |
+| ------------------------------------ | ----------------------------------------------- |
+| Code is expensive to write           | Code is cheap to regenerate                     |
+| Documentation often skipped          | Documentation is the persistent value           |
+| Knowledge lives in developers' heads | Knowledge is externalized to docs               |
+| Iteration is costly                  | Iteration is nearly free                        |
+| Spec is refined at the end           | Spec (and wireframe) is refined after each step |
 
 **Learning is preserved in the documentation, not in the code.**
 
 ## Commands
 
-| Command | Argument | Purpose |
-|---------|----------|---------|
+| Command         | Argument         | Purpose                                     |
+| --------------- | ---------------- | ------------------------------------------- |
 | `/ml-wireframe` | `wireframe_path` | Review wireframe to verify AI understanding |
-| `/ml-spec` | `wireframe_path` | Create specification from wireframe |
-| `/ml-impl` | `spec_path` | Implement from specification |
-| `/ml-retain` | — | Capture learnings before clearing context |
+| `/ml-spec`      | `wireframe_path` | Create specification from wireframe         |
+| `/ml-impl`      | `spec_path`      | Implement from specification                |
+| `/ml-retain`    | —                | Capture learnings before clearing context   |
 
 ## Skills
 
 Skills are reference documents the AI reads during command execution.
 
-| Skill | Description |
-|-------|-------------|
-| [meta-loop-methodology](skills/meta-loop-methodology/SKILL.md) | Full development process theory and practical user guide |
-| [wireframe-design](skills/wireframe-design/SKILL.md) | Tips for creating wireframes that drive accurate specs |
-| [view-specifications](skills/view-specifications/SKILL.md) | Guide and template for writing view specification documents |
+| Skill                                                          | Description                                                 |
+| -------------------------------------------------------------- | ----------------------------------------------------------- |
+| [meta-loop-methodology](skills/meta-loop-methodology/SKILL.md) | Full development process theory and practical user guide    |
+| [wireframe-design](skills/wireframe-design/SKILL.md)           | Tips for creating wireframes that drive accurate specs      |
+| [view-specifications](skills/view-specifications/SKILL.md)     | Guide and template for writing view specification documents |
 
 ## The Flow
 
-```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│    Draw      │ ──▶ │   Create     │ ──▶ │  Implement   │ ──▶ │   Capture    │
-│  Wireframe   │     │    Spec      │     │    Code      │     │  Learnings   │
-│  (manual)    │     │  /ml-spec    │     │  /ml-impl    │     │  /ml-retain  │
-└──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
-       │                    │                    │                    │
-       └────────────────────┴────────────────────┴────────────────────┘
-                              Clear context & repeat
-```
+![Meta Loop Diagram](skills/meta-loop-methodology/meta-loop-diagram.png)
+
+The process has **three nested loops** plus a learning retention step. Each loop has a review gate where you confirm the output before advancing. If a review fails, you delete and regenerate rather than patch.
+
+### Three Loops
+
+1. **Wireframe Loop** — Draw a wireframe (manual, on paper or in a drawing app), then use `/ml-wireframe` to verify the AI understands it. If the review fails, revise the wireframe and re-verify.
+2. **Specification Loop** — Use `/ml-spec` to generate a view spec from the wireframe. Review the spec against the wireframe. If the review fails, fix the wireframe or supporting docs and regenerate the spec.
+3. **Implementation Loop** — Use `/ml-impl` to generate code from the spec. Review the implementation against the spec. If the review fails, fix the spec (or the wireframe behind it) and regenerate the code.
+
+After all three loops pass, use `/ml-retain` to capture learnings before clearing context.
+
+### Four Modes
+
+Each step runs in a specific mode that determines who is acting:
+
+| Mode | Color (in diagram) | Meaning |
+| --- | --- | --- |
+| Human Action | White | You do the work (draw, review, confirm) |
+| Plan Mode | Pink | AI plans an approach for your approval |
+| Ask Mode | Yellow | AI answers questions or analyzes artifacts |
+| Agent Mode | Blue | AI generates output (spec, code) autonomously |
+
+### Review Gates and Feedback
+
+- Each loop ends with a human review. Passing advances to the next loop; failing sends you back to regenerate.
+- **Cross-loop feedback:** A spec review failure can send you back to the wireframe. An implementation review failure can send you back to the spec or the wireframe.
+- **"Complete" gates:** You explicitly confirm completion before advancing. Context is cleared between loops so each phase starts fresh.
+
+For the full methodology, see [meta-loop-methodology](skills/meta-loop-methodology/SKILL.md).
 
 ## The "Delete and Regenerate" Rule
 
@@ -125,7 +146,7 @@ cd /path/to/your/project
 
 ## Project Structure
 
-```
+```ascii
 meta-loop-ios/
 ├── .claude-plugin/
 │   └── plugin.json         # Plugin manifest
