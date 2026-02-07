@@ -4,6 +4,8 @@
 
 AI-assisted iOS development methodology for high probability single-shot repeatability. Build features with AI coding agents using a structured `wireframe → spec → implementation → learning retention` workflow.
 
+**Before you start, read the [Meta-Loop Methodology](skills/meta-loop-methodology/SKILL.md).** It explains the full process, the thinking behind it, and how to get the most out of every command. The README gives you the overview — the methodology doc is the real manual.
+
 ## The Problem
 
 Traditional development with AI coding agents often results in:
@@ -64,12 +66,12 @@ After all three loops pass, use `/ml-retain` to capture learnings before clearin
 
 Each step runs in a specific mode that determines who is acting:
 
-| Mode | Color (in diagram) | Meaning |
-| --- | --- | --- |
-| Human Action | White | You do the work (draw, review, confirm) |
-| Plan Mode | Pink | AI plans an approach for your approval |
-| Ask Mode | Yellow | AI answers questions or analyzes artifacts |
-| Agent Mode | Blue | AI generates output (spec, code) autonomously |
+| Mode         | Color (in diagram) | Meaning                                       |
+| ------------ | ------------------ | --------------------------------------------- |
+| Human Action | White              | You do the work (draw, review, confirm)       |
+| Plan Mode    | Pink               | AI plans an approach for your approval        |
+| Ask Mode     | Yellow             | AI answers questions or analyzes artifacts    |
+| Agent Mode   | Blue               | AI generates output (spec, code) autonomously |
 
 ### Review Gates and Feedback
 
