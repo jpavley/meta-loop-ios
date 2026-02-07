@@ -7,6 +7,7 @@ A Claude Code plugin providing a structured AI-assisted iOS development methodol
 ```
 .claude-plugin/plugin.json   # Minimal manifest (Anthropic standard)
 commands/                    # Slash commands (installed to .claude/commands/)
+  ml-setup.md               # Step 0: Scaffold project for meta-loop workflow
   ml-wireframe.md            # Step 1: Review wireframe
   ml-spec.md                 # Step 2: Create spec from wireframe
   ml-impl.md                 # Step 3: Implement from spec

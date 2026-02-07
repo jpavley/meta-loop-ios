@@ -33,6 +33,7 @@ Meta-Loop inverts traditional software economics:
 
 | Command         | Argument         | Purpose                                     |
 | --------------- | ---------------- | ------------------------------------------- |
+| `/ml-setup`     | —                | Scaffold project for meta-loop workflow     |
 | `/ml-wireframe` | `wireframe_path` | Review wireframe to verify AI understanding |
 | `/ml-spec`      | `wireframe_path` | Create specification from wireframe         |
 | `/ml-impl`      | `spec_path`      | Implement from specification                |
@@ -92,6 +93,18 @@ For the full methodology, see [meta-loop-methodology](skills/meta-loop-methodolo
 5. Now anyone can reproduce it
 
 ## Example Workflows
+
+### Project Setup
+
+```bash
+# 1. Install the plugin (from your project root)
+/path/to/meta-loop-ios/install.sh
+
+# 2. Scaffold project directories and starter files
+/ml-setup
+
+# 3. Follow the action items printed by /ml-setup
+```
 
 ### New Feature (full loop)
 
@@ -153,6 +166,7 @@ meta-loop-ios/
 ├── .claude-plugin/
 │   └── plugin.json         # Plugin manifest
 ├── commands/               # Slash commands
+│   ├── ml-setup.md
 │   ├── ml-wireframe.md
 │   ├── ml-spec.md
 │   ├── ml-impl.md
