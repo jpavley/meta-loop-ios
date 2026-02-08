@@ -297,7 +297,7 @@ Create a simple sketch of what you want to build. This doesn't need to be pixel-
 - Show layout structure (what goes where)
 - Indicate interactive elements (buttons, inputs)
 - Use simple boxes and labels
-- Save as PNG in `specs/views/<feature>/wireframe.png`
+- Save as PNG in `specs/views/<feature>/` using descriptive names ending in `-wireframe.png` (e.g., `main-view-wireframe.png`, `edit-wireframe.png`)
 
 **Avoid:**
 
@@ -308,7 +308,7 @@ Create a simple sketch of what you want to build. This doesn't need to be pixel-
 ### Step 2: Verify Understanding (`/ml-wireframe`)
 
 ```bash
-/ml-wireframe specs/views/my-feature/wireframe.png
+/ml-wireframe specs/views/my-feature/
 ```
 
 The AI will describe what it sees and ask clarifying questions.
@@ -322,7 +322,7 @@ The AI will describe what it sees and ask clarifying questions.
 First, clear your context. Then:
 
 ```bash
-/ml-spec specs/views/my-feature/wireframe.png
+/ml-spec specs/views/my-feature/
 ```
 
 This runs three phases:

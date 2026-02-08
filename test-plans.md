@@ -2,18 +2,19 @@
 
 > Three human-executable test plans to verify that the meta-loop commands and skills work correctly.
 
-## Recommended Wireframe
+## Recommended Wireframes
 
-For all tests, draw a **"Bookmark List" view** -- a simple screen showing a list of saved bookmarks. It exercises all major spec sections:
+For all tests, draw wireframes for a **"Bookmarks" feature** -- a set of screens for managing saved bookmarks. Use multiple wireframes to exercise both wireframe types:
 
-- **Header** with title ("Bookmarks")
-- **List** of items (title + URL, variable count)
-- **Interactive elements** (tap item to open, swipe to delete)
-- **Empty state** ("No bookmarks yet")
-- **Dismiss button** (X, top-left)
-- Portrait only is fine (annotate: "same layout in landscape, just wider")
+**Screen wireframes:**
+- `bookmark-main-view-wireframe.png` — Main list view: header ("Bookmarks"), scrollable list of items (title + URL), empty state ("No bookmarks yet"), dismiss button (X, top-left). Portrait only (annotate: "same layout in landscape, just wider")
+- `bookmark-edit-wireframe.png` — Edit/detail view for a single bookmark (title, URL, tags, rating)
+- `bookmark-search-wireframe.png` — Search overlay with filter results
 
-Draw it on paper or iPad at whiteboard quality. Annotate: label each element, mark the list as scrollable, note the empty state, note that tapping an item calls a callback. Save as `specs/views/bookmark-list/wireframe.png`.
+**Logic wireframe:**
+- `bookmark-paste-logic-wireframe.png` — Paste capture flow: detect clipboard content → validate URL → check for duplicates → create bookmark entry
+
+Draw them on paper or iPad at whiteboard quality. Annotate each: label elements, mark scrollable areas, note empty states, note that tapping an item calls a callback. Save all wireframes to `specs/views/bookmarks/`.
 
 ---
 
@@ -39,9 +40,9 @@ Draw it on paper or iPad at whiteboard quality. Annotate: label each element, ma
 
 ### Wireframe Phase
 
-6. Create `specs/views/bookmark-list/` dir and place your wireframe PNG there
-   - **Expect:** Wireframe file exists
-7. Run `/ml-wireframe specs/views/bookmark-list/wireframe.png`
+6. Create `specs/views/bookmarks/` dir and place your wireframe PNGs there
+   - **Expect:** Wireframe files exist with descriptive `-wireframe.png` names
+7. Run `/ml-wireframe specs/views/bookmarks/`
    - **Expect:** AI describes the layout, identifies elements, asks specific clarifying questions (or none if wireframe is clear), gives PASS/FAIL verdict. A `notes.md` file is created in the spec directory on PASS
 8. Answer any clarifying questions. If FAIL, update wireframe and rerun step 7
    - **Expect:** Eventually PASS
@@ -50,10 +51,10 @@ Draw it on paper or iPad at whiteboard quality. Annotate: label each element, ma
 
 ### Specification Phase
 
-10. Run `/ml-spec specs/views/bookmark-list/wireframe.png`
+10. Run `/ml-spec specs/views/bookmarks/`
     - **Expect:** AI enters plan mode, proposes spec structure, waits for approval
 11. Approve the plan
-    - **Expect:** AI writes `specs/views/bookmark-list/spec.md`, copies wireframe, runs self-review. PASS with platform-agnostic requirement sections and Swift code only in Implementation Reference
+    - **Expect:** AI writes `specs/views/bookmarks/spec.md`, embeds wireframes, runs self-review. PASS with platform-agnostic requirement sections and Swift code only in Implementation Reference
 12. Verify `spec.md` exists and has all template sections (Layout, Child Views, Interactive Elements, View Interface, Implementation Reference, etc.)
     - **Expect:** All sections present, no Swift code outside Implementation Reference
 13. Clear context
@@ -61,7 +62,7 @@ Draw it on paper or iPad at whiteboard quality. Annotate: label each element, ma
 
 ### Implementation Phase
 
-14. Run `/ml-impl specs/views/bookmark-list/spec.md`
+14. Run `/ml-impl specs/views/bookmarks/spec.md`
     - **Expect:** AI enters plan mode, proposes files to create/modify, waits for approval
 15. Approve the plan
     - **Expect:** AI creates Swift files, attempts build, runs self-review
@@ -105,21 +106,21 @@ Use any existing iOS project with at least a few Swift files and an established 
 
 ### Wireframe Phase
 
-4. Place wireframe at `specs/views/bookmark-list/wireframe.png`
-   - **Expect:** File exists
-5. Run `/ml-wireframe specs/views/bookmark-list/wireframe.png`
+4. Place wireframes in `specs/views/bookmarks/` with descriptive `-wireframe.png` names
+   - **Expect:** Files exist
+5. Run `/ml-wireframe specs/views/bookmarks/`
    - **Expect:** AI references **existing codebase patterns** from CLAUDE.md in its analysis (e.g., "I see your project uses NavigationStack" or "matching your existing theme system"). This is the key differentiator from Test 1
 
 ### Specification Phase
 
-6. On PASS, clear context and run `/ml-spec specs/views/bookmark-list/wireframe.png`
+6. On PASS, clear context and run `/ml-spec specs/views/bookmarks/`
    - **Expect:** Spec plan references existing views/patterns. The spec's Implementation Reference should use the project's actual file paths and naming conventions
 7. Verify spec references existing components
    - **Expect:** Child Views section links to real existing views where applicable. Implementation Reference uses project's actual directory structure
 
 ### Implementation Phase
 
-8. Clear context and run `/ml-impl specs/views/bookmark-list/spec.md`
+8. Clear context and run `/ml-impl specs/views/bookmarks/spec.md`
    - **Expect:** Implementation plan modifies existing files (e.g., adding navigation routes) in addition to creating new ones
 9. Verify build succeeds and new code follows existing patterns
    - **Expect:** Builds, uses same styling/naming conventions as rest of project
@@ -150,13 +151,13 @@ Use any existing iOS project with at least a few Swift files and an established 
 
 2. Create a **deliberately ambiguous** wireframe: draw the bookmark list but omit annotations -- no labels, no interaction notes, no empty state, no data source info
    - **Expect:** Bare wireframe PNG saved
-3. Run `/ml-wireframe specs/views/bookmark-list/wireframe.png`
+3. Run `/ml-wireframe specs/views/bookmarks/`
    - **Expect:** AI should identify ambiguities and give **FAIL** verdict with specific issues listed (e.g., "unclear what tapping a row does", "no empty state shown")
 4. Verify FAIL output lists specific improvements, not generic advice
    - **Expect:** Issues are actionable (e.g., "annotate what happens on row tap")
-5. Update the wireframe: add annotations addressing each listed issue
-   - **Expect:** Improved wireframe saved
-6. Re-run `/ml-wireframe specs/views/bookmark-list/wireframe.png`
+5. Update the wireframes: add annotations addressing each listed issue
+   - **Expect:** Improved wireframes saved
+6. Re-run `/ml-wireframe specs/views/bookmarks/`
    - **Expect:** Should now PASS (or identify fewer issues). Repeat until PASS
 
 ### Spec Violation Detection
@@ -167,9 +168,9 @@ Use any existing iOS project with at least a few Swift files and an established 
    - **Expect:** Spec now violates the platform-agnostic rule
 9. Ask Claude to review the spec: "Review this spec against the view-specifications skill for code placement violations"
    - **Expect:** AI should identify the platform-specific code in requirement sections
-10. Delete the sabotaged spec: `rm specs/views/bookmark-list/spec.md`
+10. Delete the sabotaged spec: `rm specs/views/bookmarks/spec.md`
     - **Expect:** Spec deleted
-11. Re-run `/ml-spec specs/views/bookmark-list/wireframe.png`
+11. Re-run `/ml-spec specs/views/bookmarks/`
     - **Expect:** Fresh spec generated without the violations. Requirement sections are clean
 
 ### Implementation Deviation Detection

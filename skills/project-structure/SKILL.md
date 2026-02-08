@@ -43,10 +43,10 @@ MyApp/                              # Git repo root
 ├── specs/                          # Specifications (ml-setup creates dir)
 │   └── views/                      # View specs
 │       └── feature-name/           # One directory per feature
-│           ├── wireframe.png       # You create (drawing tool)
+│           ├── *-wireframe.png     # You create (drawing tool, one or more)
+│           ├── about-this-view.md  # You create (optional context)
 │           ├── spec.md             # ml-spec generates
-│           ├── notes.md            # ml-spec generates, you + AI update
-│           └── about-this-view.md  # You create (optional context)
+│           └── notes.md            # ml-spec generates, you + AI update
 ├── supporting-docs/                # App-level context (ml-setup creates dir)
 │   └── about-this-app.md          # You create
 └── doc/                            # Retained learnings (ml-retain creates dir)
@@ -69,7 +69,7 @@ MyApp/                              # Git repo root
 | `.claude/skills/` | `install.sh` | Plugin updates | No | Reference skill documents |
 | `.claude/settings.json` | You | You | No | MCP servers, permissions |
 | `specs/views/` | `/ml-setup` | — | No | Parent directory for view specs |
-| `specs/views/*/wireframe.png` | You | You | No | Hand-drawn wireframe image |
+| `specs/views/*/*-wireframe.png` | You | You | No | Hand-drawn wireframe images (screen and/or logic) |
 | `specs/views/*/spec.md` | `/ml-spec` | AI (regenerated) | No | Generated view specification |
 | `specs/views/*/notes.md` | `/ml-spec` | You + AI | No | Decisions and context per feature |
 | `specs/views/*/about-this-view.md` | You | You | No | Optional extra context for a view |
@@ -133,7 +133,7 @@ Do **not** gitignore:
 | `supporting-docs/` | `/ml-setup` | Project scaffolding |
 | `doc/` | `/ml-retain` | First learning retention session |
 
-You create feature subdirectories (e.g., `specs/views/bookmark-list/`) manually when you save a wireframe.
+You create feature subdirectories (e.g., `specs/views/bookmarks/`) manually when you save your wireframes.
 
 ## Optional Files
 

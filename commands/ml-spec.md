@@ -12,7 +12,7 @@ Complete the specification loop: plan the spec, write it, and review for correct
 ## Arguments
 
 - `$ARGUMENTS`: Path to wireframe(s) that will drive the specification
-  - Examples: `specs/views/my-feature/wireframe.png` or `specs/views/my-feature/`
+  - Examples: `specs/views/my-feature/main-view-wireframe.png` or `specs/views/my-feature/`
 
 ## Prerequisites
 
@@ -115,13 +115,13 @@ Create the spec directory if it doesn't exist:
 specs/{category}/{name}/
 ```
 
-### 2.2 Copy Wireframes
+### 2.2 Verify Wireframes
 
-Copy wireframe images to the spec directory so they live together:
+Wireframes should already be in the spec directory with `*-wireframe.png` naming. If wireframes were provided from a different location, copy them into the spec directory so they live together:
 ```
-specs/{category}/{name}/wireframe.png
-specs/{category}/{name}/portrait.png (if multiple)
-specs/{category}/{name}/landscape.png (if multiple)
+specs/{category}/{name}/main-view-wireframe.png
+specs/{category}/{name}/edit-wireframe.png (if applicable)
+specs/{category}/{name}/paste-logic-wireframe.png (if applicable)
 ```
 
 ### 2.3 Write Specification
@@ -138,8 +138,8 @@ Write `specs/{category}/{name}/spec.md` following the approved plan.
 ## Overview
 [Brief description of purpose and scope]
 
-## Wireframe
-![Wireframe](./wireframe.png)
+## Wireframes
+![Feature Name - Main View](./main-view-wireframe.png)
 
 ## Layout
 [Description of arrangement, spacing, sections — use tables and prose, not code]
@@ -225,7 +225,7 @@ After writing, provide a summary:
 
 **Files Created:**
 - spec.md
-- wireframe.png
+- notes.md (updated)
 - [other files]
 
 **Views Referenced:**
@@ -370,9 +370,10 @@ Learning is preserved in the updated source documents (wireframe, CLAUDE.md), no
 specs/
 ├── views/                      ← SwiftUI view specs
 │   └── {view-name}/
+│       ├── *-wireframe.png     ← screen and/or logic wireframes
+│       ├── about-this-view.md  ← optional context (you create)
 │       ├── spec.md
-│       ├── wireframe.png
-│       └── *.png (variants)
+│       └── notes.md
 ├── services/                   ← Backend services
 └── utilities/                  ← Helper utilities
 ```

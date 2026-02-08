@@ -218,9 +218,11 @@ verify code without leaving the conversation.
 
 ## What to Do Next
 
-1. Draw a wireframe for your first feature (paper, iPad, any drawing tool)
-2. Save it to `specs/views/{feature-name}/wireframe.png`
-3. Run `/ml-wireframe specs/views/{feature-name}/wireframe.png`
+1. Draw wireframes for your first feature (paper, iPad, any drawing tool)
+   - Screen wireframes for layout, logic wireframes for data flow
+   - Use descriptive names ending in `-wireframe.png` (e.g., `main-view-wireframe.png`)
+2. Save them to `specs/views/{feature-name}/`
+3. Run `/ml-wireframe specs/views/{feature-name}/`
 ````
 
 ---

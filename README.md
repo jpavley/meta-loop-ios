@@ -110,13 +110,14 @@ For the full methodology, see [meta-loop-methodology](skills/meta-loop-methodolo
 ### New Feature (full loop)
 
 ```bash
-# 1. Draw your wireframe, save to specs/views/my-feature/wireframe.png
+# 1. Draw wireframes, save to specs/views/my-feature/ with descriptive names
+#    (e.g., main-view-wireframe.png, edit-wireframe.png)
 
-# 2. Verify the AI understands it
-/ml-wireframe specs/views/my-feature/wireframe.png
+# 2. Verify the AI understands them
+/ml-wireframe specs/views/my-feature/
 
 # 3. Clear context, then generate the spec
-/ml-spec specs/views/my-feature/wireframe.png
+/ml-spec specs/views/my-feature/
 
 # 4. Clear context, then implement from spec
 /ml-impl specs/views/my-feature/spec.md
@@ -132,7 +133,7 @@ For the full methodology, see [meta-loop-methodology](skills/meta-loop-methodolo
 # 1. Update the wireframe or supporting docs to clarify
 # 2. Delete the bad spec and code
 # 3. Regenerate
-/ml-spec specs/views/my-feature/wireframe.png
+/ml-spec specs/views/my-feature/
 /ml-impl specs/views/my-feature/spec.md
 ```
 
@@ -175,7 +176,8 @@ MyApp/
 │   └── skills/                  #   reference docs
 ├── specs/views/                 # ml-setup creates
 │   └── feature-name/
-│       ├── wireframe.png        #   you create (drawing tool)
+│       ├── *-wireframe.png      #   you create (descriptive names)
+│       ├── about-this-view.md   #   you create (optional context)
 │       └── spec.md              #   ml-spec generates
 ├── supporting-docs/             # ml-setup creates
 │   └── about-this-app.md       #   you create

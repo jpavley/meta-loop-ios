@@ -96,19 +96,19 @@ Every view spec follows this structure. Use the template at the end of this docu
 
 ### 2. Wireframes Section
 
-Always include both wireframes with descriptive alt text:
+Embed all wireframes with descriptive alt text. Include screen wireframes (layout) and any logic wireframes (data flow, processing). Use descriptive filenames ending in `-wireframe.png`:
 
 ```markdown
 ## Wireframes
 
-### Portrait
+![{View Name} - Main View](./main-view-wireframe.png)
 
-![{View Name} - Portrait](./portrait.png)
+![{View Name} - Edit State](./edit-wireframe.png)
 
-### Landscape
-
-![{View Name} - Landscape](./landscape.png)
+![{View Name} - Paste Logic](./paste-logic-wireframe.png)
 ```
+
+Include only the wireframes that exist for this feature. Portrait-only apps need a single screen wireframe; apps with meaningful landscape differences should include orientation variants.
 
 ### 3. Child Views Table
 
@@ -389,9 +389,9 @@ Good wireframes include annotations that map UI elements to views. When reviewin
 
 ## Common Pitfalls
 
-### 1. Forgetting Landscape Layout
+### 1. Missing Orientation Coverage
 
-Every view MUST specify both portrait AND landscape where applicable. Phone landscape uses different column arrangements than portrait.
+If the app supports rotation and the layout changes meaningfully in landscape, the spec must cover both orientations. Portrait-only apps need only one layout section.
 
 ### 2. Missing Alignment Specifications
 
@@ -411,7 +411,7 @@ If you're describing internal child view behavior in a parent view spec, stop an
 ## Checklist Before Completing a View Spec
 
 - [ ] Header has HTML comment `<!-- VIEW: {name} -->` for tooling
-- [ ] Both wireframes embedded with proper alt text
+- [ ] All wireframes embedded with proper alt text
 - [ ] Child views table links to all used view specs
 - [ ] Layout section covers BOTH portrait AND landscape (where applicable)
 - [ ] Alignment explicitly specified for all containers holding lists
@@ -438,14 +438,9 @@ Use this template as the starting point for new view specs:
 
 ## Wireframes
 
-### Portrait
-![Portrait wireframe](./portrait.png)
+![View Name - Main View](./main-view-wireframe.png)
 
-### Landscape
-![Landscape wireframe](./landscape.png)
-
-### Tablet (optional)
-![Tablet wireframe](./tablet.png)
+![View Name - Logic (optional)](./logic-wireframe.png)
 
 ## Layout Requirements
 

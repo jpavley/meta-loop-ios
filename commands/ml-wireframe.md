@@ -13,7 +13,8 @@ Review a wireframe to ensure mutual understanding between developer and AI befor
 
 - `$ARGUMENTS`: Path to wireframe image(s) to review
   - Can be a single image path or a directory containing multiple wireframes
-  - Examples: `specs/views/my-feature/wireframe.png` or `specs/views/my-feature/`
+  - A directory loads all `*-wireframe.png` files in it
+  - Examples: `specs/views/my-feature/main-view-wireframe.png` or `specs/views/my-feature/`
 
 ## Prerequisites
 
