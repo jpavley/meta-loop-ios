@@ -7,11 +7,13 @@
 For all tests, draw wireframes for a **"Bookmarks" feature** -- a set of screens for managing saved bookmarks. Use multiple wireframes to exercise both wireframe types:
 
 **Screen wireframes:**
+
 - `bookmark-main-view-wireframe.png` — Main list view: header ("Bookmarks"), scrollable list of items (title + URL), empty state ("No bookmarks yet"), dismiss button (X, top-left). Portrait only (annotate: "same layout in landscape, just wider")
 - `bookmark-edit-wireframe.png` — Edit/detail view for a single bookmark (title, URL, tags, rating)
 - `bookmark-search-wireframe.png` — Search overlay with filter results
 
 **Logic wireframe:**
+
 - `bookmark-paste-logic-wireframe.png` — Paste capture flow: detect clipboard content → validate URL → check for duplicates → create bookmark entry
 
 Draw them on paper or iPad at whiteboard quality. Annotate each: label elements, mark scrollable areas, note empty states, note that tapping an item calls a callback. Save all wireframes to `specs/views/bookmarks/`.

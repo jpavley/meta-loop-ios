@@ -13,3 +13,6 @@
 # Editor
 .vscode/
 *.code-workspace
+
+# Claude Code
+.claude/

@@ -8,20 +8,17 @@ The Bookmarks feature lets users save, organize, and search web bookmarks captur
 
 ## Data Model
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | UUID | Unique identifier |
-| `title` | string | User-editable title (initially extracted from page) |
-| `url` | string | The bookmarked URL |
-| `tags` | [string] | User-assigned tags, lowercase, no spaces (e.g., `swift`, `ios-dev`) |
-| `rating` | int (0-5) | User rating, 0 means unrated |
-| `dateAdded` | date | When the bookmark was created |
-| `notes` | string, optional | Free-form user notes |
+| Field       | Type      | Description                                                         |
+| ----------- | --------- | ------------------------------------------------------------------- |
+| `id`        | UUID      | Unique identifier                                                   |
+| `title`     | string    | User-editable title (initially extracted from page)                 |
+| `url`       | string    | The bookmarked URL                                                  |
+| `tags`      | [string]  | User-assigned tags, lowercase, no spaces (e.g., `swift`, `ios-dev`) |
+| `rating`    | int (0-5) | User rating, 0 means unrated                                        |
+| `dateAdded` | date      | When the bookmark was created                                       |
 
 ## Business Rules
 
-- **Paste capture:** When the app comes to the foreground, check the clipboard for a URL. If found, prompt the user to save it as a bookmark.
-- **Duplicate detection:** Before creating a bookmark, check if the URL already exists. If it does, ask the user whether to update the existing entry or discard.
 - **Rating system:** Stars 1-5; tapping an already-selected star resets rating to 0 (unrated).
 - **Tag format:** Tags are lowercase, hyphenated (no spaces). The UI should auto-format user input.
 - **Search:** Searches title, URL, tags, and notes. Results update as the user types.
